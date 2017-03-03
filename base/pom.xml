@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.metas.endcustomer.mf15</groupId>
-		<artifactId>de.metas.endcustomer.mf15</artifactId>
+		<groupId>de.metas.dist</groupId>
+		<artifactId>metasfresh-federation</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>de.metas.endcustomer.mf15.base</artifactId>
+	<artifactId>metasfresh-federation-base</artifactId>
 	<packaging>jar</packaging>
 
 
