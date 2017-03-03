@@ -23,7 +23,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.groupId}.base</artifactId>
+			<artifactId>metasfresh-federation-base</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		

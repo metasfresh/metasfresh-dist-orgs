@@ -43,7 +43,7 @@ Since we now work with a range, we now declare the dependencies here where range
 -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.groupId}.serverRoot</artifactId>
+			<artifactId>metasfresh-federation-serverRoot</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
@@ -74,7 +74,7 @@ Since we now work with a range, we now declare the dependencies here where range
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.groupId}.swingui</artifactId>
+			<artifactId>metasfresh-federation-swingui</artifactId>
 			<version>1.0.0</version>
 			<classifier>client</classifier>
 			<type>zip</type>
@@ -300,13 +300,13 @@ note: when adding new records, please roughly order them by alphabet.
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.groupId}.base</artifactId>
+			<artifactId>metasfresh-federation-base</artifactId>
 			<version>1.0.0</version>
 			<classifier>jasper</classifier>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.groupId}.base</artifactId>
+			<artifactId>metasfresh-federation-base</artifactId>
 			<version>1.0.0</version>
 			<classifier>migration-postgres-sql</classifier>
 			<type>zip</type>
@@ -463,7 +463,7 @@ note: when adding new records, please roughly order them by alphabet.
 						<!-- 
 						First we explicitly extract everything that is *not* the jasper files from 
 							de.metas.fresh.base or
-							de.metas.endcustomer.*.base.
+							metasfresh-federation-base.
 						Among these files, we don't expect any name collisions.
 						-->
 						<id>unpack-jasper-general</id>
@@ -473,7 +473,7 @@ note: when adding new records, please roughly order them by alphabet.
 						</goals>
 						<configuration>
 							<type>jar</type>
-							<excludeArtifactIds>de.metas.fresh.base, ${project.groupId}.base</excludeArtifactIds>
+							<excludeArtifactIds>de.metas.fresh.base, metasfresh-federation-base</excludeArtifactIds>
 							<classifier>jasper</classifier>
 							<excludeTransitive>true</excludeTransitive>
 							<failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
@@ -511,7 +511,7 @@ note: when adding new records, please roughly order them by alphabet.
 						</goals>
 						<configuration>
 							<type>jar</type>
-							<includeArtifactIds>${project.groupId}.base</includeArtifactIds>
+							<includeArtifactIds>metasfresh-federation-base</includeArtifactIds>
 							<classifier>jasper</classifier>
 							<excludeTransitive>true</excludeTransitive>
 							<failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
@@ -540,14 +540,14 @@ note: when adding new records, please roughly order them by alphabet.
 							<artifactItems>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.groupId}.serverRoot</artifactId>
+									<artifactId>metasfresh-federation-serverRoot</artifactId>
 									<version>${project.version}</version>
 									<outputDirectory>${project.build.directory}/dist/deploy</outputDirectory>
 									<destFileName>metasfresh_server.jar</destFileName>
 								</artifactItem>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.groupId}.swingui</artifactId>
+									<artifactId>metasfresh-federation-swingui</artifactId>
 									<classifier>client</classifier>
 									<version>${project.version}</version>
 									<type>zip</type>
