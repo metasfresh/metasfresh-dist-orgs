@@ -4,11 +4,11 @@
 
 	<parent>
 		<groupId>de.metas.dist</groupId>
-		<artifactId>metasfresh-federation</artifactId>
+		<artifactId>metasfresh-orgs</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>metasfresh-federation-swingui</artifactId>
+	<artifactId>metasfresh-orgs-swingui</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -101,7 +101,7 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>metasfresh-federation-base</artifactId>
+			<artifactId>metasfresh-orgs-base</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
