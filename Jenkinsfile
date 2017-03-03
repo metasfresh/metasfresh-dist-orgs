@@ -119,7 +119,7 @@ node('agent && linux && libc6-i386')
 {
 	configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings', replaceTokens: true, variable: 'MAVEN_SETTINGS')]) 
 	{
-		// as of now, /de.metas.endcustomer.mf15.base/src/main/resources/org/adempiere/version.properties contains "env.BUILD_VERSION", "env.MF_UPSTREAM_BRANCH" and others,
+		// as of now, /base/src/main/resources/org/adempiere/version.properties contains "env.BUILD_VERSION", "env.MF_UPSTREAM_BRANCH" and others,
 		// which needs to be replaced when version.properties is dealt with by the ressources plugin, see https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html
 		withEnv(["BUILD_VERSION=${BUILD_VERSION}", "MF_UPSTREAM_BRANCH=${MF_UPSTREAM_BRANCH}", "CHANGE_URL=${env.CHANGE_URL}", "BUILD_NUMBER=${env.BUILD_NUMBER}"])
 		{
@@ -169,13 +169,13 @@ node('agent && linux && libc6-i386')
 
 				// we now have set the versions of metas-webui etc within the pom.xml. In order to document them, write them into a file.
 				// the file's name is app.properties, as configured in metasfresh-parent's pom.xml. Thx to http://stackoverflow.com/a/26589696/1012103
-				sh "mvn --settings $MAVEN_SETTINGS --file de.metas.endcustomer.mf15.dist/pom.xml --batch-mode properties:write-project-properties"
+				sh "mvn --settings $MAVEN_SETTINGS --file dist/pom.xml --batch-mode properties:write-project-properties"
 
 				// now load the properties we got from the pom.xml. Thx to http://stackoverflow.com/a/39644024/1012103
-				def mavenProps = readProperties  file: 'de.metas.endcustomer.mf15.dist/app.properties'
+				def mavenProps = readProperties  file: 'dist/app.properties'
 
 				final MF_ARTIFACT_URLS = [:];
-				MF_ARTIFACT_URLS['metasfresh-dist'] = "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/endcustomer/mf15/de.metas.endcustomer.mf15.dist/${BUILD_VERSION}/de.metas.endcustomer.mf15.dist-${BUILD_VERSION}-dist.tar.gz";
+				MF_ARTIFACT_URLS['metasfresh-dist'] = "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/dist/metasfresh-federation-dist/${BUILD_VERSION}/metasfresh-federation-dist-${BUILD_VERSION}-dist.tar.gz";
 				MF_ARTIFACT_URLS['metasfresh-webui'] = "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.ui.web&a=metasfresh-webui-api&v=${mavenProps['metasfresh-webui-api.version']}";
 				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.ui.web&a=metasfresh-webui-frontend&p=tar.gz&v=${mavenProps['metasfresh-webui-frontend.version']}";
 				MF_ARTIFACT_URLS['metasfresh-procurement-webui']= "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.procurement&a=de.metas.procurement.webui&v=${mavenProps['metasfresh-procurement-webui.version']}";
@@ -198,8 +198,8 @@ node('agent && linux && libc6-i386')
 <h3>Deployable artifacts</h3>
 <ul>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-dist']}\">dist-tar.gz</a></li>
-	<li><a href=\"https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/endcustomer/mf15/de.metas.endcustomer.mf15.dist/${BUILD_VERSION}/de.metas.endcustomer.mf15.dist-${BUILD_VERSION}-sql-only.tar.gz\">sql-only-tar.gz</a></li>
-	<li><a href=\"https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/endcustomer/mf15/de.metas.endcustomer.mf15.swingui/${BUILD_VERSION}/de.metas.endcustomer.mf15.swingui-${BUILD_VERSION}-client.zip\">client.zip</a></li>
+	<li><a href=\"https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/dist/metasfresh-federation-dist/${BUILD_VERSION}/metasfresh-federation-dist-${BUILD_VERSION}-sql-only.tar.gz\">sql-only-tar.gz</a></li>
+	<li><a href=\"https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/dist/metasfresh-federation-swingui/${BUILD_VERSION}/metasfresh-federation-swingui-${BUILD_VERSION}-client.zip\">client.zip</a></li>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-webui']}\">metasfresh-webui-api.jar</a></li>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-webui-frontend']}\">metasfresh-webui-frontend.tar.gz</a></li>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-procurement-webui']}\">metasfresh-procurement-webui.jar</a></li>
@@ -269,13 +269,13 @@ stage('Test SQL-Migration')
 	{
 		node('master')
 		{
-			final distArtifactId='de.metas.endcustomer.mf15.dist';
+			final distArtifactId='metasfresh-federation-dist';
 			final classifier='sql-only';
 			final packaging='tar.gz';
 			final sshTargetHost='mf15cloudit';
 			final sshTargetUser='metasfresh'
 
-			downloadForDeployment('de.metas.endcustomer.mf15', distArtifactId, BUILD_VERSION, packaging, classifier, sshTargetHost, sshTargetUser);
+			downloadForDeployment('de.metas.dist', distArtifactId, BUILD_VERSION, packaging, classifier, sshTargetHost, sshTargetUser);
 
 			final fileAndDirName="${distArtifactId}-${BUILD_VERSION}-${classifier}"
 			final deployDir="/home/${sshTargetUser}/${fileAndDirName}-${MF_UPSTREAM_BRANCH}"
