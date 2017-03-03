@@ -9,8 +9,8 @@
 		<relativePath>../de.metas.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>de.metas.endcustomer.mf15</groupId>
-	<artifactId>de.metas.endcustomer.mf15</artifactId>
+	<groupId>de.metas.dist</groupId>
+	<artifactId>metasfresh-federation</artifactId>
 	<packaging>pom</packaging>
 
 	<!-- FRESH-271: we need an explicit version here, otherwise versions-maven-plugin can't set it to another version -->
@@ -22,10 +22,10 @@
 		In here, because the versions-maven-plugin doesn't resolve them when we run its set goal.
 		There are probably ways to replace the property with its hardcoded string, but I'm not exploring them now
 		-->
-		<module>de.metas.endcustomer.mf15.base</module>
-		<module>de.metas.endcustomer.mf15.serverRoot</module>
-		<module>de.metas.endcustomer.mf15.swingui</module>
-		<module>de.metas.endcustomer.mf15.dist</module>
+		<module>base</module>
+		<module>serverRoot</module>
+		<module>swingui</module>
+		<module>dist</module>
 	</modules>
 
 	<build>
