@@ -1,0 +1,55 @@
+-- 04.03.2017 11:28
+-- URL zum Konzept
+UPDATE AD_Column SET AD_Val_Rule_ID=NULL,Updated=TO_TIMESTAMP('2017-03-04 11:28:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=2762
+;
+
+-- 04.03.2017 11:45
+-- URL zum Konzept
+UPDATE AD_UI_ElementGroup SET UIStyle='',Updated=TO_TIMESTAMP('2017-03-04 11:45:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_ElementGroup_ID=1000013
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET IsDisplayed='Y',Updated=TO_TIMESTAMP('2017-03-04 11:46:07','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541806
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET SeqNo=65,Updated=TO_TIMESTAMP('2017-03-04 11:46:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541955
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET SeqNo=67,Updated=TO_TIMESTAMP('2017-03-04 11:46:14','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541956
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET IsDisplayed='Y',Updated=TO_TIMESTAMP('2017-03-04 11:46:15','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541954
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET IsDisplayed='Y',Updated=TO_TIMESTAMP('2017-03-04 11:46:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541955
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET IsDisplayed='Y',Updated=TO_TIMESTAMP('2017-03-04 11:46:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541956
+;
+
+-- 04.03.2017 11:46
+-- URL zum Konzept
+UPDATE AD_UI_Element SET SeqNo=5,Updated=TO_TIMESTAMP('2017-03-04 11:46:56','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=541806
+;
+
+-- 04.03.2017 11:47
+-- URL zum Konzept
+UPDATE AD_UI_Element SET SeqNo=80,Updated=TO_TIMESTAMP('2017-03-04 11:47:00','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=1000074
+;
+
+-- 04.03.2017 11:47
+-- URL zum Konzept
+UPDATE AD_UI_Element SET IsDisplayed='N',Updated=TO_TIMESTAMP('2017-03-04 11:47:31','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_UI_Element_ID=1000074
+;
+
