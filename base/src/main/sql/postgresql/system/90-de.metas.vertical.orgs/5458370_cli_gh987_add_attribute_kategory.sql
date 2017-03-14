@@ -54,11 +54,6 @@ INSERT INTO M_Product_Category_Acct (M_Product_Category_ID, C_AcctSchema_ID, AD_
 UPDATE M_Product SET M_Product_Category_ID=540004,Updated=TO_TIMESTAMP('2017-03-14 16:00:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE M_Product_ID=540022
 ;
 
--- 14.03.2017 16:01
--- URL zum Konzept
-INSERT INTO M_ProductPrice (AD_Client_ID,AD_Org_ID,Created,CreatedBy,C_TaxCategory_ID,C_UOM_ID,IsActive,IsAttributeDependant,IsDefault,IsHUPrice,IsSeasonFixedPrice,MatchSeqNo,M_AttributeSetInstance_ID,M_PriceList_Version_ID,M_Product_ID,M_ProductPrice_ID,PriceLimit,PriceList,PriceStd,SeqNo,Updated,UpdatedBy,UseScalePrice) VALUES (1000000,1000000,TO_TIMESTAMP('2017-03-14 16:01:19','YYYY-MM-DD HH24:MI:SS'),100,1000002,100,'Y','Y','N','N','N',10,549213,2002139,540022,540030,0,0,60.000000000000,60,TO_TIMESTAMP('2017-03-14 16:01:19','YYYY-MM-DD HH24:MI:SS'),100,'N')
-;
-
 -- 14.03.2017 16:17
 -- URL zum Konzept
 UPDATE M_Attribute SET IsInstanceAttribute='Y',Updated=TO_TIMESTAMP('2017-03-14 16:17:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE M_Attribute_ID=540030
