@@ -112,7 +112,7 @@ FROM
 	-- Moved attributes in the select block, to provide the view with an M_AttributeSetInstance_ID so it can index scan
 WHERE
 	-- Moved the filter on M_InOut_ID into a subquery to make sure, M_InOut isretrieved first, to prevent a Seq Scan on M_InOutLine_ID
-	pc.M_Product_Category_ID != (SELECT value::numeric FROM AD_SysConfig WHERE name = 'PackingMaterialProductCategoryID' AND isActive = 'Y')
+	pc.M_Product_Category_ID != getSysConfigAsNumeric('PackingMaterialProductCategoryID', iol.AD_Client_ID, iol.AD_Org_ID)
 	AND QtyEntered != 0 -- Don't display lines without a Qty. See fresh_08293
 ) x
 GROUP BY
