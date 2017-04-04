@@ -84,7 +84,7 @@ FROM
 	) att ON iol.M_AttributeSetInstance_ID = att.M_AttributeSetInstance_ID
 WHERE
 	iol.M_InOut_ID = $1
-	AND pc.M_Product_Category_ID != (SELECT value::numeric FROM AD_SysConfig WHERE name = 'PackingMaterialProductCategoryID' AND isActive = 'Y')
+	AND pc.M_Product_Category_ID != getSysConfigAsNumeric('PackingMaterialProductCategoryID', iol.AD_Client_ID, iol.AD_Org_ID)
 	AND QtyEntered != 0 -- Don't display lines without a Qty. See fresh_08293
 ORDER BY
 	 iol.line, COALESCE(bpp.ProductNo, p.value)
