@@ -115,7 +115,7 @@ FROM
 		GROUP BY M_AttributeSetInstance_ID
 	) att ON iol.M_AttributeSetInstance_ID = att.M_AttributeSetInstance_ID
 WHERE
-	pc.M_Product_Category_ID != (SELECT value::numeric FROM AD_SysConfig WHERE name = 'PackingMaterialProductCategoryID' AND isActive = 'Y')
+	pc.M_Product_Category_ID != getSysConfigAsNumeric('PackingMaterialProductCategoryID', iol.AD_Client_ID, iol.AD_Org_ID)
 	AND QtyEntered != 0 -- Don't display lines without a Qty. See fresh_08293
 ) x
 GROUP BY
