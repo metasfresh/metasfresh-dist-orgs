@@ -148,19 +148,9 @@ UPDATE AD_UI_Element SET IsDisplayedGrid='Y', SeqNoGrid=30,Updated=TO_TIMESTAMP(
 INSERT INTO R_StatusCategory (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,IsDefault,Name,R_StatusCategory_ID,Updated,UpdatedBy) VALUES (0,0,TO_TIMESTAMP('2017-04-26 17:31:54','YYYY-MM-DD HH24:MI:SS'),100,'Y','N','Seminar',540005,TO_TIMESTAMP('2017-04-26 17:31:54','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
--- 2017-04-26T17:32:08.274
--- URL zum Konzept
-UPDATE AD_Sequence SET CurrentNext = CurrentNext + ? WHERE AD_Sequence_ID = ? RETURNING CurrentNext - ?
-;
-
 -- 2017-04-26T17:32:08.280
 -- URL zum Konzept
 INSERT INTO R_Status (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,IsClosed,IsDefault,IsFinalClose,IsOpen,IsWebCanUpdate,Name,R_StatusCategory_ID,R_Status_ID,SeqNo,TimeoutDays,Updated,UpdatedBy,Value) VALUES (0,0,TO_TIMESTAMP('2017-04-26 17:32:07','YYYY-MM-DD HH24:MI:SS'),100,'Y','N','N','N','Y','N','vorgemerkt',540005,540015,0,0,TO_TIMESTAMP('2017-04-26 17:32:07','YYYY-MM-DD HH24:MI:SS'),100,'10000000')
-;
-
--- 2017-04-26T17:32:14.467
--- URL zum Konzept
-UPDATE AD_Sequence SET CurrentNext = CurrentNext + ? WHERE AD_Sequence_ID = ? RETURNING CurrentNext - ?
 ;
 
 -- 2017-04-26T17:32:14.473
@@ -176,11 +166,6 @@ UPDATE R_Status SET Name='geplant',Updated=TO_TIMESTAMP('2017-04-26 17:32:28','Y
 -- 2017-04-26T17:32:34.689
 -- URL zum Konzept
 UPDATE R_Status SET Name='Anmeldefrist',Updated=TO_TIMESTAMP('2017-04-26 17:32:34','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE R_Status_ID=540016
-;
-
--- 2017-04-26T17:32:41.819
--- URL zum Konzept
-UPDATE AD_Sequence SET CurrentNext = CurrentNext + ? WHERE AD_Sequence_ID = ? RETURNING CurrentNext - ?
 ;
 
 -- 2017-04-26T17:32:41.824
