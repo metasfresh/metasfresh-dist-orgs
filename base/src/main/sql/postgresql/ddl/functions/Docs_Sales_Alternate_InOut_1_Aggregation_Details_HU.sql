@@ -57,7 +57,7 @@ FROM
 	LEFT OUTER JOIN C_DocLine_Sort_Item dlsi ON dls.C_DocLine_Sort_ID = dlsi.C_DocLine_Sort_ID AND dlsi.M_Product_ID = p.M_Product_ID AND dlsi.isActive = 'Y'
 WHERE
 	-- Moved the filter on M_InOut_ID into a subquery to make sure, M_InOut isretrieved first, to prevent a Seq Scan on M_InOutLine_ID
-	pc.M_Product_Category_ID = (SELECT value::numeric FROM AD_SysConfig WHERE name = 'PackingMaterialProductCategoryID' AND isActive = 'Y')
+	pc.M_Product_Category_ID = getSysConfigAsNumeric('PackingMaterialProductCategoryID', iol.AD_Client_ID, iol.AD_Org_ID)
 	AND QtyEntered != 0 -- Don't display lines without a Qty. See fresh_08293
 ) x
 GROUP BY

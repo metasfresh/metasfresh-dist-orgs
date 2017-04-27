@@ -2,6 +2,135 @@
 // the "!#/usr/bin... is just to to help IDEs, GitHub diffs, etc properly detect the language and do syntax highlighting for you.
 // thx to https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md
 
+def boolean isRepoExists(String repoId)
+{
+	withCredentials([usernameColonPassword(credentialsId: 'nexus_jenkins', variable: 'NEXUS_LOGIN')])
+	{
+		echo "Check if the nexus repository ${repoId} exists";
+
+		// check if there is a repository for ur branch
+		final String checkForRepoCommand = "curl --silent -X GET -u ${NEXUS_LOGIN} https://repo.metasfresh.com/service/local/repositories | grep '<id>${repoId}-releases</id>'";
+		final grepExitCode = sh returnStatus: true, script: checkForRepoCommand;
+		final repoExists = grepExitCode == 0;
+
+		echo "The nexus repository ${repoId} exists: ${repoExists}";
+		return repoExists;
+	}
+}
+
+def createRepo(String repoId)
+{
+	withCredentials([usernameColonPassword(credentialsId: 'nexus_jenkins', variable: 'NEXUS_LOGIN')])
+	{
+		echo "Create the repository ${repoId}-releases";
+
+		final String createRepoPayload = """<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<repository>
+  <data>
+	<id>${repoId}-releases</id>
+	<name>${repoId}-releases</name>
+	<exposed>true</exposed>
+	<repoType>hosted</repoType>
+	<writePolicy>ALLOW_WRITE_ONCE</writePolicy>
+    <browseable>true</browseable>
+    <indexable>true</indexable>
+	<repoPolicy>RELEASE</repoPolicy>
+	<providerRole>org.sonatype.nexus.proxy.repository.Repository</providerRole>
+	<provider>maven2</provider>
+	<format>maven2</format>
+  </data>
+</repository>
+""";
+
+		// # nexus ignored application/json
+		final String createRepoCommand =  "curl --silent -H \"Content-Type: application/xml\" -X POST -u ${NEXUS_LOGIN} -d \'${createRepoPayload}\' https://repo.metasfresh.com/service/local/repositories"
+		sh "${createRepoCommand}"
+
+		echo "Create the repository-group ${repoId}";
+
+		final String createGroupPayload = """<?xml version="1.0" encoding="UTF-8"?>
+<repo-group>
+  <data>
+    <repositories>
+	  <!-- include mvn-public that contains everything we need to perform the build-->
+      <repo-group-member>
+        <name>mvn-public</name>
+        <id>mvn-public</id>
+        <resourceURI>https://repo.metasfresh.com/content/repositories/mvn-public/</resourceURI>
+      </repo-group-member>
+	  <!-- include ${repoId}-releases which is the repo to which we release everything we build within this branch -->
+      <repo-group-member>
+        <name>${repoId}-releases</name>
+        <id>${repoId}-releases</id>
+        <resourceURI>https://repo.metasfresh.com/content/repositories/${repoId}-releases/</resourceURI>
+      </repo-group-member>
+    </repositories>
+    <name>${repoId}</name>
+    <repoType>group</repoType>
+    <providerRole>org.sonatype.nexus.proxy.repository.Repository</providerRole>
+    <exposed>true</exposed>
+    <id>${repoId}</id>
+	<provider>maven2</provider>
+	<format>maven2</format>
+  </data>
+</repo-group>
+"""
+
+		// # nexus ignored application/json
+		final String createGroupCommand =  "curl --silent -H \"Content-Type: application/xml\" -X POST -u ${NEXUS_LOGIN} -d \'${createGroupPayload}\' https://repo.metasfresh.com/service/local/repo_groups"
+		sh "${createGroupCommand}"
+
+		echo "Create the scheduled task to keep ${repoId}-releases from growing too big";
+
+final String createSchedulePayload = """<?xml version="1.0" encoding="UTF-8"?>
+<scheduled-task>
+  <data>
+	<id>cleanup-repo-${repoId}-releases</id>
+	<enabled>true</enabled>
+	<name>Remove Releases from ${repoId}-releases</name>
+	<typeId>ReleaseRemoverTask</typeId>
+	<schedule>daily</schedule>
+	<startDate>${currentBuild.startTimeInMillis}</startDate>
+	<recurringTime>03:00</recurringTime>
+	<properties>
+      <scheduled-task-property>
+        <key>numberOfVersionsToKeep</key>
+        <value>3</value>
+      </scheduled-task-property>
+      <scheduled-task-property>
+        <key>indexBackend</key>
+        <value>false</value>
+      </scheduled-task-property>
+      <scheduled-task-property>
+        <key>repositoryId</key>
+        <value>${repoId}-releases</value>
+      </scheduled-task-property>
+	</properties>
+  </data>
+</scheduled-task>"""
+
+		// # nexus ignored application/json
+		final String createScheduleCommand =  "curl --silent -H \"Content-Type: application/xml\" -X POST -u ${NEXUS_LOGIN} -d \'${createSchedulePayload}\' https://repo.metasfresh.com/service/local/schedules"
+		sh "${createScheduleCommand}"
+	} // withCredentials
+}
+
+def deleteRepo(String repoId)
+{
+	withCredentials([usernameColonPassword(credentialsId: 'nexus_jenkins', variable: 'NEXUS_LOGIN')])
+	{
+		echo "Delete the repository ${repoId}";
+
+		final String deleteGroupCommand = "curl --silent -X DELETE -u ${NEXUS_LOGIN} https://repo.metasfresh.com/service/local/repo_groups/${repoId}"
+		sh "${deleteGroupCommand}"
+
+		final String deleteRepoCommand = "curl --silent -X DELETE -u ${NEXUS_LOGIN} https://repo.metasfresh.com/service/local/repositories/${repoId}-releases"
+		sh "${deleteRepoCommand}"
+
+		final String deleteScheduleCommand = "curl --silent -X DELETE -u ${NEXUS_LOGIN} https://repo.metasfresh.com/service/local/schedules/cleanup-repo-${repoId}-releases"
+		sh "${deleteScheduleCommand}"
+	}
+}
 
 //
 // setup: we'll need the following variables in different stages, that's we we create them here
@@ -45,10 +174,7 @@ So if this is a "master" build, but it was invoked by a "feature-branch" build t
 			name: 'MF_METASFRESH_WEBUI_API_VERSION'),
 		string(defaultValue: '',
 			description: 'Version of the metasfresh-webui-frontend code we shall use when resolving dependencies. Leave empty and this build will use the latest.',
-			name: 'MF_METASFRESH_WEBUI_FRONTEND_VERSION'),
-		booleanParam(defaultValue: skipDeploymentParamDefaultValue, description: '''If this is true, then there will be a deployment step at the end of this pipeline.
-Task branch builds are usually not deployed, so the pipeline can finish without waiting.''',
-			name: 'MF_SKIP_DEPLOYMENT')
+			name: 'MF_METASFRESH_WEBUI_FRONTEND_VERSION')
 	]),
 	pipelineTriggers([]),
 	buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '20')) // keep the last 20 builds
@@ -128,6 +254,12 @@ node('agent && linux && libc6-i386')
 		{
 			stage('Set versions and build endcustomer-dist')
 			{
+
+				if(!isRepoExists(MF_MAVEN_REPO_NAME))
+				{
+					createRepo(MF_MAVEN_REPO_NAME);
+				}
+
 				// checkout our code
 				// note that we do not know if the stuff we checked out in the other node is available here, so we somehow need to make sure by checking out (again).
 				// see: https://groups.google.com/forum/#!topic/jenkinsci-users/513qLiYlXHc
@@ -137,10 +269,13 @@ node('agent && linux && libc6-i386')
 
 				final String metasfreshUpdateParentParam="-DparentVersion=${MF_ARTIFACT_VERSIONS['metasfresh']}";;
 
-				final String metasfreshWebFrontEndUpdatePropertyParam = "-Dproperty=metasfresh-webui-frontend.version -DnewVersion=${MF_ARTIFACT_VERSIONS['metasfresh-webui-frontend']}";
-				final String metasfreshWebApiUpdatePropertyParam = "-Dproperty=metasfresh-webui-api.version -DnewVersion=${MF_ARTIFACT_VERSIONS['metasfresh-webui']}";
-				final String metasfreshProcurementWebuiUpdatePropertyParam = "-Dproperty=metasfresh-procurement-webui.version -DnewVersion=${MF_ARTIFACT_VERSIONS['metasfresh-procurement-webui']}";
-				final String metasfreshUpdatePropertyParam="-Dproperty=metasfresh.version -DnewVersion=${MF_ARTIFACT_VERSIONS['metasfresh']}";
+				final inSquaresIfNeeded = { String version -> return version == "LATEST" ? version: "[${version}]"; }
+
+				// the square brackets in "-DnewVersion" are required if we have a conrete version (i.e. not "LATEST"); see https://github.com/mojohaus/versions-maven-plugin/issues/141 for details
+				final String metasfreshWebFrontEndUpdatePropertyParam = "-Dproperty=metasfresh-webui-frontend.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-webui-frontend'])}";
+				final String metasfreshWebApiUpdatePropertyParam = "-Dproperty=metasfresh-webui-api.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-webui'])}";
+				final String metasfreshProcurementWebuiUpdatePropertyParam = "-Dproperty=metasfresh-procurement-webui.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-procurement-webui'])}";
+				final String metasfreshUpdatePropertyParam="-Dproperty=metasfresh.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh'])}";
 
 				// update the parent pom version
 				sh "mvn --settings $MAVEN_SETTINGS --file pom.xml --batch-mode -DallowSnapshots=false -DgenerateBackupPoms=true ${MF_MAVEN_TASK_RESOLVE_PARAMS} ${metasfreshUpdateParentParam} versions:update-parent"
@@ -176,10 +311,9 @@ node('agent && linux && libc6-i386')
 
 				final MF_ARTIFACT_URLS = [:];
 				MF_ARTIFACT_URLS['metasfresh-dist'] = "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/dist/metasfresh-orgs-dist/${BUILD_VERSION}/metasfresh-orgs-dist-${BUILD_VERSION}-dist.tar.gz";
-				MF_ARTIFACT_URLS['metasfresh-webui'] = "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.ui.web&a=metasfresh-webui-api&v=${mavenProps['metasfresh-webui-api.version']}";
-				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.ui.web&a=metasfresh-webui-frontend&p=tar.gz&v=${mavenProps['metasfresh-webui-frontend.version']}";
-				MF_ARTIFACT_URLS['metasfresh-procurement-webui']= "http://repo.metasfresh.com/service/local/artifact/maven/redirect?r=${MF_MAVEN_REPO_NAME}&g=de.metas.procurement&a=de.metas.procurement.webui&v=${mavenProps['metasfresh-procurement-webui.version']}";
-
+				MF_ARTIFACT_URLS['metasfresh-webui'] = "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/ui/web/metasfresh-webui-api/${mavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${mavenProps['metasfresh-webui-api.version']}.jar";
+				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/ui/web/metasfresh-webui-frontend/${mavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${mavenProps['metasfresh-webui-frontend.version']}.tar.gz";
+				MF_ARTIFACT_URLS['metasfresh-procurement-webui']= "https://repo.metasfresh.com/service/local/repositories/${MF_MAVEN_REPO_NAME}/content/de/metas/procurement/de.metas.procurement.webui/${mavenProps['metasfresh-procurement-webui.version']}/de.metas.procurement.webui-${mavenProps['metasfresh-procurement-webui.version']}.jar";
 
 				// Note: for the rollout-job's URL with the 'parambuild' to work on this pipelined jenkins, we need the https://wiki.jenkins-ci.org/display/JENKINS/Build+With+Parameters+Plugin, and *not* version 1.3, but later.
 				// See
@@ -267,32 +401,35 @@ stage('Test SQL-Migration')
 	}
 	else
 	{
-		node('master')
+		node('linux')
 		{
-			final distArtifactId='metasfresh-orgs-dist';
-			final classifier='sql-only';
-			final packaging='tar.gz';
-			final sshTargetHost='mf15cloudit';
-			final sshTargetUser='metasfresh'
+			sshagent(['jenkins-ssh-key'])
+			{
+				final distArtifactId='metasfresh-orgs-dist';
+				final classifier='sql-only';
+				final packaging='tar.gz';
+				final sshTargetHost='mf15cloudit'; // we made sure the mf15cloudit can be resolved on every jenkins node labeled with 'linux'
+				final sshTargetUser='metasfresh'
 
-			downloadForDeployment('de.metas.dist', distArtifactId, BUILD_VERSION, packaging, classifier, sshTargetHost, sshTargetUser);
+				downloadForDeployment('de.metas.dist', distArtifactId, BUILD_VERSION, packaging, classifier, sshTargetHost, sshTargetUser);
 
-			final fileAndDirName="${distArtifactId}-${BUILD_VERSION}-${classifier}"
-			final deployDir="/home/${sshTargetUser}/${fileAndDirName}-${MF_UPSTREAM_BRANCH}"
+				final fileAndDirName="${distArtifactId}-${BUILD_VERSION}-${classifier}"
+				final deployDir="/home/${sshTargetUser}/${fileAndDirName}-${MF_UPSTREAM_BRANCH}"
 
-			// Look Ma, I'm currying!!
-			final invokeRemoteInHomeDir = invokeRemote.curry(sshTargetHost, sshTargetUser, "/home/${sshTargetUser}");
-			invokeRemoteInHomeDir("mkdir -p ${deployDir} && mv ${fileAndDirName}.${packaging} ${deployDir} && cd ${deployDir} && tar -xf ${fileAndDirName}.${packaging}")
+				// Look Ma, I'm currying!!
+				final invokeRemoteInHomeDir = invokeRemote.curry(sshTargetHost, sshTargetUser, "/home/${sshTargetUser}");
+				invokeRemoteInHomeDir("mkdir -p ${deployDir} && mv ${fileAndDirName}.${packaging} ${deployDir} && cd ${deployDir} && tar -xf ${fileAndDirName}.${packaging}")
 
-			final invokeRemoteInInstallDir = invokeRemote.curry(sshTargetHost, sshTargetUser, "${deployDir}/dist/install");
-			final VALIDATE_MIGRATION_TEMPLATE_DB='mf15_template';
-			final VALIDATE_MIGRATION_TEST_DB="tmp-mf15-${MF_UPSTREAM_BRANCH}-${env.BUILD_NUMBER}-${BUILD_VERSION}"
-					.replaceAll('[^a-zA-Z0-9]', '_') // // postgresql is in a way is allergic to '-' and '.' and many other characters in in DB names
-					.toLowerCase(); // also, DB names are generally in lowercase
+				final invokeRemoteInInstallDir = invokeRemote.curry(sshTargetHost, sshTargetUser, "${deployDir}/dist/install");
+				final VALIDATE_MIGRATION_TEMPLATE_DB='mf15_template';
+				final VALIDATE_MIGRATION_TEST_DB="tmp-metasfresh-dist-orgs-${MF_UPSTREAM_BRANCH}-${env.BUILD_NUMBER}-${BUILD_VERSION}"
+						.replaceAll('[^a-zA-Z0-9]', '_') // // postgresql is in a way is allergic to '-' and '.' and many other characters in in DB names
+						.toLowerCase(); // also, DB names are generally in lowercase
 
-			invokeRemoteInInstallDir("./sql_remote.sh -n ${VALIDATE_MIGRATION_TEMPLATE_DB} ${VALIDATE_MIGRATION_TEST_DB}");
+				invokeRemoteInInstallDir("./sql_remote.sh -n ${VALIDATE_MIGRATION_TEMPLATE_DB} ${VALIDATE_MIGRATION_TEST_DB}");
 
-			invokeRemoteInHomeDir("rm -r ${deployDir}"); // cleanup
+				invokeRemoteInHomeDir("rm -r ${deployDir}"); // cleanup
+			}
 		}
 	} // if(params.MF_SKIP_SQL_MIGRATION_TEST)
 } // stage
