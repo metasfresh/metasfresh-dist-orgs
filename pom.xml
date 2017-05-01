@@ -111,11 +111,6 @@
 							<searchReactor>false</searchReactor>
 							<autoLinkDependencies>true</autoLinkDependencies>
 						</property>
-						<property>
-							<name>metasfresh-procurement-webui.version</name>
-							<searchReactor>false</searchReactor>
-							<autoLinkDependencies>true</autoLinkDependencies>
-						</property>
 					</properties>
 				</configuration>
 			</plugin>
