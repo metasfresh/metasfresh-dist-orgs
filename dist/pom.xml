@@ -27,8 +27,7 @@
 		-->
 		<!-- 1.0.0 is the version that is build and installed to our local repo bei eclipse or if we run maven from the command line -->
 		<metasfresh.version>1.0.0</metasfresh.version>
-		<metasfresh-webui-api.version>1.0.0</metasfresh-webui-api.version>
-		<metasfresh-procurement-webui.version>1.0.0</metasfresh-procurement-webui.version>
+		<metasfresh-webui-api.version>1.0.0</metasfresh-webui-api.version>		
 		
 		<!-- need to pick LATEST because there is now 1.0.0 version in our local repo. Because currently it's only build on jenkins. -->
 		<metasfresh-webui-frontend.version>LATEST</metasfresh-webui-frontend.version>
@@ -126,12 +125,6 @@ Since we now work with a range, we now declare the dependencies here where range
 			<artifactId>metasfresh-webui-frontend</artifactId>
 			<version>${metasfresh-webui-frontend.version}</version>
 			<type>tar.gz</type>
-		</dependency>
-		<dependency>
-			<groupId>de.metas.procurement</groupId>
-			<artifactId>de.metas.procurement.webui</artifactId>
-			<version>${metasfresh-procurement-webui.version}</version>
-			<type>jar</type>
 		</dependency>
 
 <!-- 
@@ -576,8 +569,7 @@ note: when adding new records, please roughly order them by alphabet.
 								de.metas.printing.esb.camel,
 								de.metas.edi.esb.camel,
 								de.metas.admin.webui,
-								<!-- gh #968 -->
-								de.metas.procurement.webui,
+								<!-- metasfresh/metasfresh#968 -->
 								metasfresh-webui-frontend,
 								metasfresh-webui-api
 							</includeArtifactIds>
