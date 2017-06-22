@@ -85,8 +85,8 @@ Since we now work with a range, we now declare the dependencies here where range
 			<version>${metasfresh.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>de.metas.printing</groupId>
-			<artifactId>de.metas.printing.client</artifactId>
+			<groupId>de.metas.printing.esb</groupId>
+			<artifactId>de.metas.printing.esb.client</artifactId>
 			<classifier>jar-with-dependencies</classifier>
 			<version>${metasfresh.version}</version>
 		</dependency>
