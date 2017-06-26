@@ -95,11 +95,6 @@ Since we now work with a range, we now declare the dependencies here where range
 			<artifactId>de.metas.edi.esb.camel</artifactId>
 			<version>${metasfresh.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>de.metas.document.archive.esb</groupId>
-			<artifactId>de.metas.document.archive.esb.camel</artifactId>
-			<version>${metasfresh.version}</version>
-		</dependency>
 		
 		<!-- removed because we are not using it
 		<dependency>
@@ -587,7 +582,7 @@ note: when adding new records, please roughly order them by alphabet.
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/dist/deploy/download</outputDirectory>
-							<includeArtifactIds>de.metas.printing.esb.client</includeArtifactIds>
+							<includeArtifactIds>de.metas.printing.client</includeArtifactIds>
 							<classifier>jar-with-dependencies</classifier>
 							<type>jar</type>
 							<excludeTransitive>true</excludeTransitive>
