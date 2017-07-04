@@ -348,9 +348,9 @@ node('agent && linux && libc6-i386')
 		} // withEnv(['"BUILD_VERSION=${BUILD_VERSION}"'])
 	} // configFileProvider
 
-	// clean up the workspace, including the local maven repositories that the withMaven steps created
-	// don't clean up the work space..we do it when we check out next time
-	// step([$class: 'WsCleanup', cleanWhenFailure: true])
+	// clean up the workspace after (successfull) builds
+	cleanWs cleanWhenAborted: false, cleanWhenFailure: false
+
 } // node
 
 // we need this one for both "Test-SQL" and "Deployment
