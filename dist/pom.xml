@@ -85,8 +85,8 @@ Since we now work with a range, we now declare the dependencies here where range
 			<version>${metasfresh.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>de.metas.printing.esb</groupId>
-			<artifactId>de.metas.printing.esb.client</artifactId>
+			<groupId>de.metas.printing</groupId>
+			<artifactId>de.metas.printing.client</artifactId>
 			<classifier>jar-with-dependencies</classifier>
 			<version>${metasfresh.version}</version>
 		</dependency>
@@ -95,14 +95,6 @@ Since we now work with a range, we now declare the dependencies here where range
 			<artifactId>de.metas.edi.esb.camel</artifactId>
 			<version>${metasfresh.version}</version>
 		</dependency>
-		
-		<!-- removed because we are not using it
-		<dependency>
-			<groupId>de.metas.admin.webui</groupId>
-			<artifactId>de.metas.admin.webui</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		-->
 
 		<!-- 
 			gh #968 https://github.com/metasfresh/metasfresh/issues/968
