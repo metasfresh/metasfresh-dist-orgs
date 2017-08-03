@@ -16,7 +16,7 @@
 		
 		<!-- the main spring-boot jar which shall further down be copied into the lib folder -->
 		<mainJar>${project.name}-${project.version}.jar</mainJar>
-		
+
 		<start-class>de.metas.SwingUIApplication</start-class>
 		<spring.jarLauncherClass>org.springframework.boot.loader.JarLauncher</spring.jarLauncherClass>
 		<!-- AFAIK, only digits and dots are allowed with launch4j  -->
@@ -27,7 +27,7 @@
 		<runner.java.options>-Xms32m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -Djava.util.Arrays.useLegacyMergeSort=true</runner.java.options>
 
 		<runner.bat.defaultAdempiereHome>%~dp0\..</runner.bat.defaultAdempiereHome>
-		
+
 		<runner.bat.classpath>%ADEMPIERE_HOME%\lib\${mainJar}</runner.bat.classpath>
 		<runner.sh.classpath>$ADEMPIERE_HOME/lib/${mainJar}</runner.sh.classpath>
 		
@@ -64,8 +64,8 @@
 			<exclusions>
 				<!-- excluded to avoid maven-enforcer-plugin error: Duplicate classes found: org.ow2.asm:asm:jar:5.0.3:test, net.minidev:accessors-smart:jar:1.1:test -->
 				<exclusion>
-				    <groupId>org.ow2.asm</groupId>
-   					<artifactId>asm</artifactId>
+					<groupId>org.ow2.asm</groupId>
+					<artifactId>asm</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -129,19 +129,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot.version}</version>
-				<configuration>
-					<executable>false</executable>
-					<mainClass>${start-class}</mainClass>
-				</configuration>
 				<executions>
 					<execution>
+						<id>spring-boot-swingui-create-build-info</id>
 						<goals>
+							<goal>build-info</goal> <!-- create build-info.properties; thanks to https://docs.spring.io/spring-boot/docs/current/reference/html/howto-build.html#howto-build-info -->
+						</goals>
+					</execution>
+					<execution>
+						<id>spring-boot-swingui-create-executable-jar</id>
+						<goals>
+							<goal>build-info</goal> <!-- create build-info.properties; thanks to https://docs.spring.io/spring-boot/docs/current/reference/html/howto-build.html#howto-build-info -->
 							<goal>repackage</goal>
 						</goals>
+						<configuration>
+							<executable>false</executable>
+							<mainClass>${start-class}</mainClass>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -186,8 +194,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-
 
 			<plugin>
 				<!--  
