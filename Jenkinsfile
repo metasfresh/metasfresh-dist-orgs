@@ -116,7 +116,7 @@ node('agent && linux && libc6-i386')
 			)
 			echo "mvnConf=${mvnConf}"
 
-			nexusCreateRepoIfNotExists mvnConf.mvnRepoBaseURL, mvnConf.mvnRepoName
+			nexusCreateRepoIfNotExists mvnConf.mvnDeployRepoBaseURL, mvnConf.mvnRepoName
 
 			stage('Set versions and build endcustomer-dist')
 			{
