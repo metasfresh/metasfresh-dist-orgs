@@ -10,9 +10,8 @@ UPDATE C_Location SET Address1='Burgerrietstrasse 13', Address2='', Address3='',
 
 -- 07.03.2017 15:33
 -- URL zum Konzept
--- INSERT INTO AD_SysConfig (AD_Client_ID,AD_Org_ID,AD_SysConfig_ID,ConfigurationLevel,Created,CreatedBy,IsActive,Name,Updated,UpdatedBy,Value) VALUES (1000000,0,541081,'C',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'Y','de.metas.payment.esr.Enabled',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'N')
--- ;
--- is created in metasfresh meanwhile
+INSERT INTO AD_SysConfig (AD_Client_ID,AD_Org_ID,AD_SysConfig_ID,ConfigurationLevel,Created,CreatedBy,IsActive,Name,Updated,UpdatedBy,Value) VALUES (1000000,0,541081,'C',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'Y','de.metas.payment.esr.Enabled',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'N')
+;
 
 -- 07.03.2017 15:33
 -- URL zum Konzept
