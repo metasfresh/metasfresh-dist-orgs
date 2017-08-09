@@ -13,7 +13,7 @@ UPDATE C_Location SET Address1='Burgerrietstrasse 13', Address2='', Address3='',
 --
 -- added update instead
 update AD_SysConfig
-set value ='Y' where name 'de.metas.payment.esr.Enabled';
+set value ='Y' where name ='de.metas.payment.esr.Enabled';
 
 -- 07.03.2017 15:33
 -- URL zum Konzept
