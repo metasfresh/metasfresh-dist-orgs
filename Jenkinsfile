@@ -235,19 +235,17 @@ MF_ARTIFACT_VERSIONS['metasfresh'] = params.MF_METASFRESH_VERSION ?: "LATEST";
 MF_ARTIFACT_VERSIONS['metasfresh-webui'] = params.MF_METASFRESH_WEBUI_API_VERSION ?: "LATEST";
 MF_ARTIFACT_VERSIONS['metasfresh-webui-frontend'] = params.MF_METASFRESH_WEBUI_FRONTEND_VERSION ?: "LATEST";
 
-// these two are shown in jenkins, for each build
-currentBuild.displayName="${MF_UPSTREAM_BRANCH} - build #${currentBuild.number} - artifact-version ${MF_BUILD_VERSION}";
-
 timestamps
 {
 // https://github.com/metasfresh/metasfresh/issues/2110 make version/build infos more transparent
 final String MF_RELEASE_VERSION = retrieveReleaseInfo(MF_UPSTREAM_BRANCH);
 echo "Retrieved MF_RELEASE_VERSION=${MF_RELEASE_VERSION}"
-
 // example version string: 5.20.2-23 with "5.20" == MF_RELEASE_VERSION
 final String MF_VERSION="${MF_RELEASE_VERSION}.${MF_BUILD_VERSION}";
 echo "set MF_VERSION=${MF_VERSION}";
 
+// these two are shown in jenkins, for each build
+currentBuild.displayName="${MF_UPSTREAM_BRANCH} - build #${currentBuild.number} - artifact-version ${MF_VERSION}";
 
 // to build the client-exe on linux, we need 32bit libs!
 node('agent && linux && libc6-i386')
