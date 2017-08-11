@@ -8,10 +8,12 @@ INSERT INTO C_Location (AD_Client_ID,Address1,AD_Org_ID,C_Country_ID,City,C_Loca
 UPDATE C_Location SET Address1='Burgerrietstrasse 13', Address2='', Address3='', Address4='', C_City_ID=1003843, C_Country_ID=107, City='Uznach', C_Region_ID=1000022, Postal='8730', Postal_Add='', RegionName='SG',Updated=TO_TIMESTAMP('2017-03-07 15:33:43','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Location_ID=540005
 ;
 
--- 07.03.2017 15:33
--- URL zum Konzept
-INSERT INTO AD_SysConfig (AD_Client_ID,AD_Org_ID,AD_SysConfig_ID,ConfigurationLevel,Created,CreatedBy,IsActive,Name,Updated,UpdatedBy,Value) VALUES (1000000,0,541081,'C',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'Y','de.metas.payment.esr.Enabled',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'N')
-;
+--metasfresh added this sysconfig. renoved therefore.
+--INSERT INTO AD_SysConfig (AD_Client_ID,AD_Org_ID,AD_SysConfig_ID,ConfigurationLevel,Created,CreatedBy,IsActive,Name,Updated,UpdatedBy,Value) VALUES (1000000,0,541081,'C',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'Y','de.metas.payment.esr.Enabled',TO_TIMESTAMP('2017-03-07 15:33:51','YYYY-MM-DD HH24:MI:SS'),100,'N');
+--
+-- added update instead
+update AD_SysConfig
+set value ='Y' where name ='de.metas.payment.esr.Enabled';
 
 -- 07.03.2017 15:33
 -- URL zum Konzept
