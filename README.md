@@ -4,6 +4,8 @@
 
 # metasfresh-dist
 
+[![Join the chat at https://gitter.im/metasfresh/metasfresh-dist-orgs](https://badges.gitter.im/metasfresh/metasfresh-dist-orgs.svg)](https://gitter.im/metasfresh/metasfresh-dist-orgs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This repository contains what is needed to generate a districubtable `tar.gz` file whicxh cotanins
 * the backend service
 * the swing client
