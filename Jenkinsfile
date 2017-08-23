@@ -30,11 +30,15 @@ So if this is a "master" build, but it was invoked by a "feature-branch" build t
 			name: 'MF_METASFRESH_VERSION'),
 
 		string(defaultValue: '',
-			description: 'Version of the metasfresh-webui(-API) code we shall use when resolving dependencies. Leave empty and this build will use the latest.',
+			description: 'Version of the metasfresh-admin (spring-boot-admin) webui to include in the distribution. Leave empty and this build will use the latest.',
+			name: 'MF_METASFRESH_ADMIN_VERSION'),
+	
+		string(defaultValue: '',
+			description: 'Version of the metasfresh-webui(-API) service to include in the distribution. Leave empty and this build will use the latest.',
 			name: 'MF_METASFRESH_WEBUI_API_VERSION'),
 
 		string(defaultValue: '',
-			description: 'Version of the metasfresh-webui-frontend code we shall use when resolving dependencies. Leave empty and this build will use the latest.',
+			description: 'Version of the metasfresh-webui-frontend webui to include in the distribution. Leave empty and this build will use the latest.',
 			name: 'MF_METASFRESH_WEBUI_FRONTEND_VERSION')
 	]),
 	pipelineTriggers([]),
@@ -44,8 +48,10 @@ So if this is a "master" build, but it was invoked by a "feature-branch" build t
 // gh #968 make create a map equal to the one we create in metasfresh/Jenkinsfile. The way we used it further down is also similar
 final MF_ARTIFACT_VERSIONS = [:];
 MF_ARTIFACT_VERSIONS['metasfresh'] = params.MF_METASFRESH_VERSION ?: "LATEST";
+MF_ARTIFACT_VERSIONS['metasfresh-admin'] = params.MF_METASFRESH_ADMIN_VERSION ?: "LATEST";
 MF_ARTIFACT_VERSIONS['metasfresh-webui'] = params.MF_METASFRESH_WEBUI_API_VERSION ?: "LATEST";
 MF_ARTIFACT_VERSIONS['metasfresh-webui-frontend'] = params.MF_METASFRESH_WEBUI_FRONTEND_VERSION ?: "LATEST";
+
 
 timestamps
 {
@@ -53,31 +59,36 @@ timestamps
 	echo "params.MF_UPSTREAM_BRANCH=${params.MF_UPSTREAM_BRANCH}; env.BRANCH_NAME=${env.BRANCH_NAME}; => MF_UPSTREAM_BRANCH=${MF_UPSTREAM_BRANCH}"
 
 	// https://github.com/metasfresh/metasfresh/issues/2110 make version/build infos more transparent
-	final String MF_VERSION=retrieveArtifactVersion(MF_UPSTREAM_BRANCH, env.BUILD_NUMBER)
-	currentBuild.displayName="artifact-version ${MF_VERSION}";
+	final String MF_VERSION = retrieveArtifactVersion(MF_UPSTREAM_BRANCH, env.BUILD_NUMBER)
+	currentBuild.displayName = "artifact-version ${MF_VERSION}";
+
+	final def misc = new de.metas.jenkins.Misc();
+	final String MF_RELEASE_VERSION = misc.extractReleaseVersion(MF_VERSION)
 
 // to build the client-exe on linux, we need 32bit libs!
 node('agent && linux && libc6-i386')
 {
 	configFileProvider([configFile(fileId: 'metasfresh-global-maven-settings', replaceTokens: true, variable: 'MAVEN_SETTINGS')])
 	{
-		// as of now, /base/src/main/resources/org/adempiere/version.properties contains "env.MF_BUILD_VERSION", "env.MF_UPSTREAM_BRANCH" and others,
+
+		// as of now, /de.metas.endcustomer.mf15.base/src/main/resources/org/adempiere/version.properties contains "env.MF_BUILD_VERSION", "env.MF_UPSTREAM_BRANCH" and others,
 		// which needs to be replaced when version.properties is dealt with by the ressources plugin, see https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html
 		withEnv([
-			"MF_RELEASE_VERSION=${MF_RELEASE_VERSION}",
-			"MF_BUILD_VERSION=${MF_BUILD_VERSION}",
-			"MF_UPSTREAM_BRANCH=${MF_UPSTREAM_BRANCH}",
-			"CHANGE_URL=${env.CHANGE_URL}",
-			"BUILD_NUMBER=${env.BUILD_NUMBER}"])
+				"MF_VERSION=${MF_VERSION}",
+				"MF_RELEASE_VERSION=${MF_RELEASE_VERSION}",
+				"MF_BUILD_DATE=${misc.mkReleaseDate()}",
+				"MF_UPSTREAM_BRANCH=${MF_UPSTREAM_BRANCH}",
+				"CHANGE_URL=${env.CHANGE_URL}",
+				"BUILD_NUMBER=${env.BUILD_NUMBER}"])
 		{
-		withMaven(jdk: 'java-8', maven: 'maven-3.3.9', mavenLocalRepo: '.repository')
+		withMaven(jdk: 'java-8', maven: 'maven-3.5.0', mavenLocalRepo: '.repository')
 		{
 			// create our config instance to be used further on
 			final MvnConf mvnConf = new MvnConf(
 				'pom.xml', // pomFile
 				MAVEN_SETTINGS, // settingsFile
 				"mvn-${MF_UPSTREAM_BRANCH}", // mvnRepoName
-				'https://repo.metasfresh.com' // mvnRepoBaseURL - resolve and deploy
+				'https://repo.metasfresh.com' // mvnRepoBaseURL - for resolve and deploy
 			)
 			echo "mvnConf=${mvnConf}"
 
@@ -96,7 +107,8 @@ node('agent && linux && libc6-i386')
 
 				final inSquaresIfNeeded = { String version -> return version == "LATEST" ? version: "[${version}]"; }
 
-				// the square brackets in "-DnewVersion" are required if we have a conrete version (i.e. not "LATEST"); see https://github.com/mojohaus/versions-maven-plugin/issues/141 for details
+				// the square brackets in "-DnewVersion" are required if we have a concrete version (i.e. not "LATEST"); see https://github.com/mojohaus/versions-maven-plugin/issues/141 for details
+				final String metasfreshAdminPropertyParam="-Dproperty=metasfresh-admin.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-admin'])}";
 				final String metasfreshWebFrontEndUpdatePropertyParam = "-Dproperty=metasfresh-webui-frontend.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-webui-frontend'])}";
 				final String metasfreshWebApiUpdatePropertyParam = "-Dproperty=metasfresh-webui-api.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh-webui'])}";
 				final String metasfreshUpdatePropertyParam="-Dproperty=metasfresh.version -DnewVersion=${inSquaresIfNeeded(MF_ARTIFACT_VERSIONS['metasfresh'])}";
@@ -104,17 +116,19 @@ node('agent && linux && libc6-i386')
 				// update the metasfresh.version property. either to the latest version or to the given params.MF_METASFRESH_VERSION.
 				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode ${mvnConf.resolveParams} ${metasfreshUpdatePropertyParam} versions:update-property"
 
-				// gh #968 also update the metasfresh-webui-frontend.version, metasfresh-webui-api.versions versions.
+				// gh #968 also update the metasfresh-webui-frontend.version, metasfresh-webui-api.versions and procurement versions.
+				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode ${mvnConf.resolveParams} ${metasfreshAdminPropertyParam} versions:update-property"
 				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode ${mvnConf.resolveParams} ${metasfreshWebFrontEndUpdatePropertyParam} versions:update-property"
 				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode ${mvnConf.resolveParams} ${metasfreshWebApiUpdatePropertyParam} versions:update-property"
 
-				// set the artifact version of everything below the endcustomer.mf15's parent pom.xml
+				// set the artifact version of everything below the endcustomer.mf15's parent ${mvnConf.pomFile}
 				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode -DnewVersion=${MF_VERSION} -DallowSnapshots=false -DgenerateBackupPoms=true -DprocessDependencies=true -DprocessParent=true -DexcludeReactor=true ${mvnConf.resolveParams} versions:set"
 
 				// do the actual building and deployment
 				// about -Dmetasfresh.assembly.descriptor.version: the versions plugin can't update the version of our shared assembly descriptor de.metas.assemblies. Therefore we need to provide the version from outside via this property
 				// about -Dmaven.test.failure.ignore=true: continue if tests fail, because we want a full report.
 				sh "mvn --settings ${mvnConf.settingsFile} --file ${mvnConf.pomFile} --batch-mode -Dmaven.test.failure.ignore=true -Dmetasfresh.assembly.descriptor.version=${MF_VERSION} ${mvnConf.resolveParams} ${mvnConf.deployParam} clean deploy"
+
 
 				// endcustomer.mf15 currently has no tests. Don't try to collect any, or a typical error migh look like this:
 				// ERROR: Test reports were found but none of them are new. Did tests run?
@@ -130,6 +144,7 @@ node('agent && linux && libc6-i386')
 				def mavenProps = readProperties  file: 'dist/app.properties'
 
 				final MF_ARTIFACT_URLS = [:];
+				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.deployRepoURL}/de/metas/admin/metasfresh-admin/${mavenProps['metasfresh-admin.version']}/metasfresh-admin-${mavenProps['metasfresh-admin.version']}.jar";
 				MF_ARTIFACT_URLS['metasfresh-dist'] = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-dist/${MF_VERSION}/metasfresh-orgs-dist-${MF_VERSION}-dist.tar.gz";
 				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-api/${mavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${mavenProps['metasfresh-webui-api.version']}.jar";
 				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${mavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${mavenProps['metasfresh-webui-frontend.version']}.tar.gz";
@@ -146,6 +161,7 @@ node('agent && linux && libc6-i386')
   <li>metasfresh-webui-frontend: version <b>${mavenProps['metasfresh-webui-frontend.version']}</b></li>
   <li>metasfresh-procurement-webui: <b>not part of this distribution</b></li>
   <li>metasfresh base: version <b>${mavenProps['metasfresh.version']}</b></li>
+  <li>metasfresh admin webui: version <b>${mavenProps['metasfresh-admin.version']}</b></li>
 </ul>
 <p>
 <h3>Deployable artifacts</h3>
@@ -155,7 +171,9 @@ node('agent && linux && libc6-i386')
 	<li><a href=\"${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-swingui/${MF_VERSION}/metasfresh-orgs-swingui-${MF_VERSION}-client.zip\">client.zip</a></li>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-webui']}\">metasfresh-webui-api.jar</a></li>
 	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-webui-frontend']}\">metasfresh-webui-frontend.tar.gz</a></li>
+	<li><a href=\"${MF_ARTIFACT_URLS['metasfresh-admin']}\">metasfresh-admin.jar</a></li>
 </ul>
+Note: all the separately listed artifacts are also included in the dist-tar.gz
 <p>
 <h3>Deploy</h3>
 <ul>
@@ -194,7 +212,7 @@ def downloadForDeployment = { String groupId, String artifactId, String version,
 			'pom.xml', // pomFile
 			MAVEN_SETTINGS, // settingsFile
 			"mvn-${MF_UPSTREAM_BRANCH}", // mvnRepoName
-			'https://repo.metasfresh.com' // mvnRepoBaseURL
+			'https://repo.metasfresh.com' // mvnRepoBaseURL - resolve and deploy
 		)
 		echo "mvnDeployConf=${mvnDeployConf}"
 
