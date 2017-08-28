@@ -32,7 +32,7 @@ So if this is a "master" build, but it was invoked by a "feature-branch" build t
 		string(defaultValue: '',
 			description: 'Version of the metasfresh-admin (spring-boot-admin) webui to include in the distribution. Leave empty and this build will use the latest.',
 			name: 'MF_METASFRESH_ADMIN_VERSION'),
-	
+
 		string(defaultValue: '',
 			description: 'Version of the metasfresh-webui(-API) service to include in the distribution. Leave empty and this build will use the latest.',
 			name: 'MF_METASFRESH_WEBUI_API_VERSION'),
@@ -144,10 +144,10 @@ node('agent && linux && libc6-i386')
 				def mavenProps = readProperties  file: 'dist/app.properties'
 
 				final MF_ARTIFACT_URLS = [:];
-				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.deployRepoURL}/de/metas/admin/metasfresh-admin/${mavenProps['metasfresh-admin.version']}/metasfresh-admin-${mavenProps['metasfresh-admin.version']}.jar";
-				MF_ARTIFACT_URLS['metasfresh-dist'] = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-dist/${MF_VERSION}/metasfresh-orgs-dist-${MF_VERSION}-dist.tar.gz";
-				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-api/${mavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${mavenProps['metasfresh-webui-api.version']}.jar";
-				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${mavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${mavenProps['metasfresh-webui-frontend.version']}.tar.gz";
+				MF_ARTIFACT_URLS['metasfresh-admin'] = misc.encodeURL("${mvnConf.deployRepoURL}/de/metas/admin/metasfresh-admin/${mavenProps['metasfresh-admin.version']}/metasfresh-admin-${mavenProps['metasfresh-admin.version']}.jar")
+				MF_ARTIFACT_URLS['metasfresh-dist'] = misc.encodeURL("${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-dist/${MF_VERSION}/metasfresh-orgs-dist-${MF_VERSION}-dist.tar.gz")
+				MF_ARTIFACT_URLS['metasfresh-webui'] = misc.encodeURL("${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-api/${mavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${mavenProps['metasfresh-webui-api.version']}.jar")
+				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] = misc.encodeURL("${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${mavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${mavenProps['metasfresh-webui-frontend.version']}.tar.gz")
 
 				// Note: for the rollout-job's URL with the 'parambuild' to work on this pipelined jenkins, we need the https://wiki.jenkins-ci.org/display/JENKINS/Build+With+Parameters+Plugin, and *not* version 1.3, but later.
 				// See
