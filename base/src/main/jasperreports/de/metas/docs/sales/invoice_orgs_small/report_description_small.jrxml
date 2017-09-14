@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-09-06T14:16:33 -->
+<!-- 2017-09-14T10:18:28 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_description_small" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" resourceBundle="de/metas/docs/sales/invoice/report" uuid="bed26190-0a93-4012-8083-15ce9416a0bf">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dist-orgs"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -123,18 +123,10 @@
 				</reportElement>
 				<text><![CDATA[Liebe Mitglieder]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="164" height="20" uuid="2ecdde80-974d-4ba0-957f-89992d023b05">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Mitgliederbeitragsrechnung]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="580" height="20" uuid="9a5f21b1-1a11-419f-b982-52b22e57d9b3"/>
+				<textFieldExpression><![CDATA[$F{printname}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
