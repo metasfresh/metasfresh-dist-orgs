@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-09-19T15:19:38 -->
+<!-- 2017-09-19T15:53:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_details_sum_medium" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="de/metas/docs/sales/invoice_orgs_medium/report" uuid="b62f017e-3912-43a3-99f6-cb0c797b3e75">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -188,17 +188,8 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<staticText>
-				<reportElement x="0" y="0" width="92" height="20" uuid="ee61973b-7703-4751-bc31-4e2e4a5d25b8">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Gesamtbetrag(inkl.]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="433" y="0" width="54" height="20" uuid="3aafd132-9469-4f6d-b56e-85b8f2ceb28f"/>
 				<textElement textAlignment="Right">
@@ -206,15 +197,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{grandtotal}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="116" y="0" width="34" height="20" uuid="b8d5e82d-87b3-4c6d-94d5-e446ce7498e0">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[MwSt.)]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="94" y="0" width="30" height="20" uuid="094378e1-04e4-4630-ae98-00349c535c27">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
@@ -224,6 +206,30 @@
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taxamt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="92" height="20" uuid="c745be88-2a21-4282-bbc9-e076d1b96a17">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{totalamt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="116" y="0" width="34" height="20" uuid="0b44c4f1-69de-43d0-a87d-1dc016475904">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{VAT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
