@@ -1,6 +1,6 @@
 -- 18.02.2017 13:38
 -- URL zum Konzept
-INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsNewTermCreatesOrder,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy) VALUES (1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy) VALUES (1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100)
 ;
 
 -- 18.02.2017 13:40
