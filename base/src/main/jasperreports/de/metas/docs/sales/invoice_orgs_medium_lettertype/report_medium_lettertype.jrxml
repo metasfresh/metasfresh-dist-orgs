@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-09-19T16:59:37 -->
+<!-- 2017-10-10T10:40:21 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="de/metas/docs/sales/invoice_orgs_medium/report" uuid="2fa464b6-5b59-45d9-8f05-3c4f9b99aa01">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -30,6 +30,25 @@
 		<band height="317" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<printWhenExpression><![CDATA[new Boolean(true)]]></printWhenExpression>
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-7" x="310" y="10" width="255" height="127" uuid="975a3dc9-7d94-43ed-b8fa-691ddc01a0c3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="doctype">
+					<subreportParameterExpression><![CDATA[new String("i")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="org_id">
+					<subreportParameterExpression><![CDATA[$F{ad_org_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="RECORD_ID">
+					<subreportParameterExpression><![CDATA[$P{RECORD_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["de/metas/docs/generics/report_orgblock_right_medium.jasper"]]></subreportExpression>
+			</subreport>
 			<subreport isUsingCache="true">
 				<reportElement key="subreport-7" x="305" y="140" width="255" height="127" uuid="36681144-0231-421b-baec-8e7f45c39773">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -62,40 +81,7 @@
 					<subreportParameterExpression><![CDATA[$P{RECORD_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium/report_description_medium.jasper"]]></subreportExpression>
-			</subreport>
-			<textField pattern="dd. MMMMM yyyy">
-				<reportElement x="81" y="36" width="230" height="14" uuid="67f1bb88-ee59-4ca8-96a2-ae6e8564f818">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="50" y="36" width="38" height="14" uuid="52b983e7-9406-422d-8b9c-96e1e62ae098">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<text><![CDATA[Zürich, ]]></text>
-			</staticText>
-			<subreport isUsingCache="true">
-				<reportElement key="subreport-7" x="310" y="10" width="255" height="127" uuid="975a3dc9-7d94-43ed-b8fa-691ddc01a0c3">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<subreportParameter name="doctype">
-					<subreportParameterExpression><![CDATA[new String("i")]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="org_id">
-					<subreportParameterExpression><![CDATA[$F{ad_org_id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="RECORD_ID">
-					<subreportParameterExpression><![CDATA[$P{RECORD_ID}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["de/metas/docs/generics/report_orgblock_right_medium.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium_lettertype/report_description_medium_lettertype.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
