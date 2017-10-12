@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-10-10T10:40:21 -->
+<!-- 2017-10-11T16:12:57 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="de/metas/docs/sales/invoice_orgs_medium/report" uuid="2fa464b6-5b59-45d9-8f05-3c4f9b99aa01">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -31,7 +31,7 @@
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<printWhenExpression><![CDATA[new Boolean(true)]]></printWhenExpression>
 			<subreport isUsingCache="true">
-				<reportElement key="subreport-7" x="310" y="10" width="255" height="127" uuid="975a3dc9-7d94-43ed-b8fa-691ddc01a0c3">
+				<reportElement key="subreport-7" x="50" y="10" width="255" height="127" uuid="975a3dc9-7d94-43ed-b8fa-691ddc01a0c3">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -47,7 +47,7 @@
 					<subreportParameterExpression><![CDATA[$P{RECORD_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["de/metas/docs/generics/report_orgblock_right_medium.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["de/metas/docs/generics/report_orgblock_right_medium_lettertype.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="true">
 				<reportElement key="subreport-7" x="305" y="140" width="255" height="127" uuid="36681144-0231-421b-baec-8e7f45c39773">
@@ -101,7 +101,7 @@
 					<subreportParameterExpression><![CDATA[$P{RECORD_ID}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium/report_details_sum_medium.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium_lettertype/report_details_sum_medium_lettertype.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="36">
@@ -118,7 +118,7 @@
 					<subreportParameterExpression><![CDATA[$P{ad_language}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium/report_details_footer_medium.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["de/metas/docs/sales/invoice_orgs_medium_lettertype/report_details_footer_medium_lettertype.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

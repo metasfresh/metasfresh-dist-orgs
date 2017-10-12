@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-10-10T11:47:35 -->
+<!-- 2017-10-11T16:45:03 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_description_medium" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" resourceBundle="de/metas/docs/sales/invoice_orgs_medium_lettertype/report" uuid="bed26190-0a93-4012-8083-15ce9416a0bf">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -37,7 +37,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement x="0" y="50" width="477" height="45" isPrintWhenDetailOverflows="true" uuid="5373ad6f-88ae-4046-865d-43d65cb7d376">
@@ -52,7 +52,7 @@
 				<textFieldExpression><![CDATA[$F{documentnote}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-10" x="90" y="0" width="90" height="20" uuid="e15cd2b4-bdd4-4a3b-998c-7e43311fbf71">
+				<reportElement key="textField-10" x="124" y="0" width="90" height="20" uuid="e15cd2b4-bdd4-4a3b-998c-7e43311fbf71">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -155,8 +155,9 @@
 				<textFieldExpression><![CDATA[$F{cont_phone}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="37f4a35d-0cf2-4059-ac7e-7d9e94e626dc">
+				<reportElement x="0" y="0" width="120" height="20" uuid="37f4a35d-0cf2-4059-ac7e-7d9e94e626dc">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement>
 					<font size="15" isBold="true"/>
