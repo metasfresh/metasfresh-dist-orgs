@@ -1,8 +1,7 @@
 -- 18.02.2017 13:38
 -- URL zum Konzept
-INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsNewTermCreatesOrder,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy) VALUES (1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100)
+INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy) VALUES (1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100)
 ;
-
 -- 18.02.2017 13:40
 -- URL zum Konzept
 INSERT INTO C_Flatrate_Transition (AD_Client_ID,AD_Org_ID,C_Calendar_Contract_ID,C_Flatrate_Transition_ID,Created,CreatedBy,DeliveryInterval,DeliveryIntervalUnit,DocAction,DocStatus,EndsWithCalendarYear,IsActive,IsAutoCompleteNewTerm,IsAutoRenew,IsNotifyUserInCharge,Name,Processed,Processing,TermDuration,TermDurationUnit,TermOfNotice,TermOfNoticeUnit,Updated,UpdatedBy) VALUES (1000000,1000000,1000000,540002,TO_TIMESTAMP('2017-02-18 13:40:52','YYYY-MM-DD HH24:MI:SS'),100,1,'year','CO','DR','Y','Y','N','N','N','1 Jahr, autom. Verlängerung, Lieferung','N','N',1,'year',0,'day',TO_TIMESTAMP('2017-02-18 13:40:52','YYYY-MM-DD HH24:MI:SS'),100)
@@ -128,7 +127,14 @@ INSERT INTO C_BP_Group_Acct (C_BP_Group_ID, C_AcctSchema_ID, AD_Client_ID,AD_Org
 
 -- 18.02.2017 13:55
 -- URL zum Konzept
-INSERT INTO C_BPartner (AcqusitionCost,AD_Client_ID,AD_Language,AD_Org_ID,AllowConsolidateInOut,C_BPartner_ID,C_BP_Group_ID,C_PaymentTerm_ID,Created,CreatedBy,CreateSO,CreditorId,DebtorId,DeliveryRule,DeliveryViaRule,DocumentCopies,EdiDESADVDefaultItemCapacity,FlatDiscount,Fresh_AllowLineDiscount,Fresh_IsPrintESR,Fresh_Produzentenabrechnung,Fresh_Urproduzent,InvoiceRule,IsActive,IsADRCustomer,IsADRVendor,IsCompany,IsCreateDefaultPOReference,IsCustomer,IsDisableOrderCheckup,IsDiscountPrinted,IsEdiRecipient,IsEmployee,IsHidePackingMaterialInShipmentPrint,IsOneTime,IsParentSponsorReadWrite,IsPlanning,IsPOTaxExempt,IsProducerAllotment,IsProspect,IsReplicationLookupDefault,IsSalesRep,IsShippingNotificationEmail,IsSubscriptionConfirmRequired,IsSummary,IsTaxExempt,IsVendor,M_FreightCost_ID,M_PriceList_ID,M_Warehouse_ID,Name,NumberEmployees,PaymentRule,PaymentRulePO,PostageFree,PostageFreeAmt,PotentialLifeTimeValue,SalesVolume,SendEMail,ShareOfCustomer,ShelfLifeMinPct,SO_CreditLimit,Updated,UpdatedBy,Value) VALUES (0,1000000,'de_DE',1000000,'Y',540005,540002,1000002,TO_TIMESTAMP('2017-02-18 13:55:20','YYYY-MM-DD HH24:MI:SS'),100,'N',0,0,'F','P',0,1,0,'N','N','N','N','D','Y','N','N','N','N','N','N','N','N','N','N','N','Y','N','N','N','N','N','N','N','N','N','N','N',1000000,2001003,540008,'Standardmitglied',0,'P','P','Su',0,0,0,'N',0,0,0,TO_TIMESTAMP('2017-02-18 13:55:20','YYYY-MM-DD HH24:MI:SS'),100,'1000001')
+INSERT INTO C_BPartner (AcqusitionCost,AD_Client_ID,AD_Language,AD_Org_ID,AllowConsolidateInOut,C_BPartner_ID,C_BP_Group_ID,C_PaymentTerm_ID,Created,CreatedBy,CreateSO,CreditorId,DebtorId,DeliveryRule,DeliveryViaRule,DocumentCopies,EdiDESADVDefaultItemCapacity,FlatDiscount,Fresh_AllowLineDiscount,Fresh_IsPrintESR,Fresh_Produzentenabrechnung,Fresh_Urproduzent,InvoiceRule,IsActive,IsADRCustomer,IsADRVendor,IsCompany,IsCreateDefaultPOReference,IsCustomer,IsDisableOrderCheckup,IsDiscountPrinted,IsEdiRecipient,IsEmployee,IsHidePackingMaterialInShipmentPrint,IsOneTime,IsParentSponsorReadWrite,IsPlanning,IsPOTaxExempt,IsProducerAllotment,IsProspect,IsReplicationLookupDefault,IsSalesRep,IsShippingNotificationEmail,
+IsSummary,IsTaxExempt,IsVendor,M_FreightCost_ID,M_PriceList_ID,M_Warehouse_ID,Name,NumberEmployees,PaymentRule,PaymentRulePO,
+PotentialLifeTimeValue,SalesVolume,
+SendEMail,ShareOfCustomer,ShelfLifeMinPct,SO_CreditLimit,
+Updated,UpdatedBy,Value) VALUES (0,1000000,'de_DE',1000000,'Y',540005,540002,1000002,TO_TIMESTAMP('2017-02-18 13:55:20','YYYY-MM-DD HH24:MI:SS'),100,'N',0,0,'F','P',0,1,0,'N','N','N','N','D','Y','N','N','N','N','N','N','N','N','N','N','N','Y','N','N','N','N','N','N','N','N','N','N',1000000,2001003,540008,'Standardmitglied',0,'P','P',
+0,0,
+'N',0,0,0,
+TO_TIMESTAMP('2017-02-18 13:55:20','YYYY-MM-DD HH24:MI:SS'),100,'1000001')
 ;
 
 -- 18.02.2017 13:55
