@@ -1,3 +1,4 @@
+drop function de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_description;
 CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying)
     RETURNS TABLE(name character varying, priceactual numeric, priceentered numeric, discount numeric, lineamt numeric, isdiscountprinted character, isprinttax character, description character varying, bp_product_name character varying, startdate timestamp without time zone, enddate timestamp without time zone, productid numeric, plannedqtyperunit numeric, taxamt numeric, rate numeric, grandtotal numeric, contractyear text, iso_code character)
     LANGUAGE 'sql'
