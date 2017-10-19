@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-10-13T14:13:31 -->
+<!-- 2017-10-19T15:41:24 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_description_medium" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" resourceBundle="de/metas/docs/sales/invoice_orgs_medium/report" uuid="bed26190-0a93-4012-8083-15ce9416a0bf">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
@@ -32,6 +32,8 @@
 	<field name="sr_fax" class="java.lang.String"/>
 	<field name="sr_email" class="java.lang.String"/>
 	<field name="printname" class="java.lang.String"/>
+	<field name="documentnote" class="java.lang.String"/>
+	<field name="letter_salutation" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -39,10 +41,11 @@
 		<band height="60" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-11" x="0" y="30" width="80" height="13" uuid="c2adc14d-beb1-41b9-9ad8-62e8b8eecd02">
+				<reportElement key="textField-11" x="0" y="30" width="80" height="14" uuid="c2adc14d-beb1-41b9-9ad8-62e8b8eecd02">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean($F{bp_value}!=null)]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -52,14 +55,15 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left">
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{invoicedate}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="80" y="30" width="90" height="13" uuid="fe70dce0-5ca0-4031-8a21-0af1802eac75">
+				<reportElement key="textField-10" x="80" y="30" width="90" height="14" uuid="fe70dce0-5ca0-4031-8a21-0af1802eac75">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean($F{bp_value}!=null)]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -69,26 +73,27 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dateinvoiced}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="60" height="13" uuid="2ac7f358-ba2d-4610-bd28-578638ecc278">
+				<reportElement x="0" y="0" width="60" height="14" uuid="2ac7f358-ba2d-4610-bd28-578638ecc278">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Rechnung Nr.]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-10" x="60" y="0" width="90" height="13" uuid="e15cd2b4-bdd4-4a3b-998c-7e43311fbf71">
+				<reportElement key="textField-10" x="60" y="0" width="90" height="14" uuid="e15cd2b4-bdd4-4a3b-998c-7e43311fbf71">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean($F{bp_value}!=null)]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -98,15 +103,16 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{documentno}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-11" x="220" y="30" width="70" height="13" uuid="9701d94c-a86b-4388-9286-0f459929bccc">
+				<reportElement key="textField-11" x="220" y="30" width="70" height="14" uuid="9701d94c-a86b-4388-9286-0f459929bccc">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean($F{bp_value}!=null)]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -116,14 +122,15 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left">
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{customerno}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
-				<reportElement key="textField-10" x="290" y="30" width="90" height="13" uuid="b83744fa-1410-4cb5-87a8-18cb70b2a0f6">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-10" x="290" y="30" width="90" height="14" uuid="b83744fa-1410-4cb5-87a8-18cb70b2a0f6">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean($F{bp_value}!=null)]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -133,7 +140,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font size="9"/>
+					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bp_value}]]></textFieldExpression>
 			</textField>
