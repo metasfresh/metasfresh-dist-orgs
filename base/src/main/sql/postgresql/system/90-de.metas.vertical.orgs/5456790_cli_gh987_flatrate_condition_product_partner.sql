@@ -1,3 +1,7 @@
+-- 18.02.2017 13:38
+-- URL zum Konzept
+INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy) VALUES (1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100)
+;
 -- 18.02.2017 13:40
 -- URL zum Konzept
 INSERT INTO C_Flatrate_Transition (AD_Client_ID,AD_Org_ID,C_Calendar_Contract_ID,C_Flatrate_Transition_ID,Created,CreatedBy,DeliveryInterval,DeliveryIntervalUnit,DocAction,DocStatus,EndsWithCalendarYear,IsActive,IsAutoCompleteNewTerm,IsAutoRenew,IsNotifyUserInCharge,Name,Processed,Processing,TermDuration,TermDurationUnit,TermOfNotice,TermOfNoticeUnit,Updated,UpdatedBy) VALUES (1000000,1000000,1000000,540002,TO_TIMESTAMP('2017-02-18 13:40:52','YYYY-MM-DD HH24:MI:SS'),100,1,'year','CO','DR','Y','Y','N','N','N','1 Jahr, autom. Verlängerung, Lieferung','N','N',1,'year',0,'day',TO_TIMESTAMP('2017-02-18 13:40:52','YYYY-MM-DD HH24:MI:SS'),100)
@@ -13,11 +17,9 @@ UPDATE C_Flatrate_Transition SET DocStatus='IP',Updated=TO_TIMESTAMP('2017-02-18
 UPDATE C_Flatrate_Transition SET DocAction='RE', DocStatus='CO', Processed='Y',Updated=TO_TIMESTAMP('2017-02-18 13:40:57','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Flatrate_Transition_ID=540002
 ;
 
--- 18.02.2017 13:38
+-- 18.02.2017 13:41
 -- URL zum Konzept
-INSERT INTO C_Flatrate_Conditions (AD_Client_ID,AD_Org_ID,C_Flatrate_Conditions_ID,ClearingAmtBaseOn,Created,CreatedBy,C_UOM_ID,DocAction,DocStatus,InvoiceRule,IsActive,IsClosingWithActualSum,IsClosingWithCorrectionSum,IsCorrectionAmtAtClosing,IsCreateNoInvoice,IsFreeOfCharge,IsManualPrice,IsSimulation,Margin_Max,Margin_Min,Name,Processed,Processing,Type_Clearing,Type_Conditions,Type_Flatrate,Updated,UpdatedBy,C_Flatrate_Transition_ID) 
-VALUES 
-(1000000,1000000,540003,'FlatrateAmount',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,100,'CO','DR','I','Y','N','N','N','N','N','Y','N',0,0,'Mitgliedschaft 1 Kalenderjahr','N','N','EX','Subscr','NONE',TO_TIMESTAMP('2017-02-18 13:38:49','YYYY-MM-DD HH24:MI:SS'),100,540002)
+UPDATE C_Flatrate_Conditions SET C_Flatrate_Transition_ID=540002,Updated=TO_TIMESTAMP('2017-02-18 13:41:04','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE C_Flatrate_Conditions_ID=540003
 ;
 
 
