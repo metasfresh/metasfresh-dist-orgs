@@ -1,3 +1,4 @@
+DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_description(numeric, character varying);
 CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_description(IN c_invoice_id numeric,IN ad_language character varying)
     RETURNS TABLE(description character varying, documentno character varying, reference character varying, dateinvoiced timestamp without time zone, vataxid character varying, bp_value character varying, cont_name text, cont_phone character varying, cont_fax character varying, cont_email character varying, sr_name text, sr_phone character varying, sr_fax character varying, sr_email character varying, printname character varying, documentnote text, letter_salutation text)
     LANGUAGE 'sql'

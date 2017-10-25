@@ -1,11 +1,10 @@
--- Function: de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(numeric, character varying)
-
--- DROP FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(numeric, character varying);
-
-CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(IN c_invoice_id numeric, IN ad_language character varying)
-  RETURNS TABLE(documentnote text, p_cond text, p_term character varying, textcenter text) AS
-$BODY$
-SELECT
+DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(numeric, character varying);
+CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(IN c_invoice_id numeric,IN ad_language character varying)
+    RETURNS TABLE(documentnote text, p_cond text, p_term character varying, textcenter text)
+    LANGUAGE 'sql'
+    STABLE
+    COST 100    ROWS 1000 
+AS $BODY$SELECT
 	dt.documentnote,
 	replace(
 		replace(
@@ -37,9 +36,4 @@ FROM
 WHERE
 	i.C_Invoice_ID = $1 AND i.isActive = 'Y'
 
-$BODY$
-  LANGUAGE sql STABLE
-  COST 100
-  ROWS 1000;
-ALTER FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details_footer(numeric, character varying)
-  OWNER TO metasfresh;
+$BODY$;

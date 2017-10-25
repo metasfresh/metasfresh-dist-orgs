@@ -1,11 +1,10 @@
--- Function: de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(numeric, character varying)
-
--- DROP FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(numeric, character varying);
-
-CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric, IN ad_language character varying)
-  RETURNS TABLE(name character varying, priceactual numeric, priceentered numeric, discount numeric, lineamt numeric, isdiscountprinted character, isprinttax character, description character varying, bp_product_name character varying, startdate timestamp without time zone, enddate timestamp without time zone, productid numeric, plannedqtyperunit numeric, taxamt numeric, rate numeric, grandtotal numeric, contractyear text, iso_code character) AS
-$BODY$
-
+DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(numeric, character varying);
+CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying)
+    RETURNS TABLE(name character varying, priceactual numeric, priceentered numeric, discount numeric, lineamt numeric, isdiscountprinted character, isprinttax character, description character varying, bp_product_name character varying, startdate timestamp without time zone, enddate timestamp without time zone, productid numeric, plannedqtyperunit numeric, taxamt numeric, rate numeric, grandtotal numeric, contractyear text, iso_code character)
+    LANGUAGE 'sql'
+    STABLE
+    COST 100    ROWS 1000 
+AS $BODY$
 SELECT	
 	COALESCE(pt.name, p.name) AS Name,
 	il.PriceActual,
@@ -26,6 +25,7 @@ SELECT
 	i.grandtotal,
 	to_char(ft.startdate, 'YYYY') AS contractyear,
 	c.Iso_Code
+	
 FROM
 	C_InvoiceLine il
 	INNER JOIN C_Invoice i ON il.C_Invoice_ID = i.C_Invoice_ID AND i.isActive = 'Y'
@@ -58,9 +58,4 @@ FROM
 WHERE
 	il.C_Invoice_ID = $1 AND il.isActive = 'Y'
 
-$BODY$
-  LANGUAGE sql STABLE
-  COST 100
-  ROWS 1000;
-ALTER FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(numeric, character varying)
-  OWNER TO metasfresh;
+$BODY$;

@@ -1,11 +1,12 @@
+DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(numeric, character varying);
 CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying)
     RETURNS TABLE(name character varying, priceactual numeric, priceentered numeric, discount numeric, lineamt numeric, isdiscountprinted character, isprinttax character, description character varying, bp_product_name character varying, startdate timestamp without time zone, enddate timestamp without time zone, productid numeric, plannedqtyperunit numeric, taxamt numeric, rate numeric, grandtotal numeric, contractyear text, iso_code character)
     LANGUAGE 'sql'
     STABLE
     COST 100    ROWS 1000 
-AS $BODY$
-SELECT	
-	COALESCE(pt.name, p.name) AS Name,
+AS $BODY$SELECT	
+	   
+	COALESCE(ftc.name, p.name) AS Name,
 	il.PriceActual,
 	il.priceentered,
 	il.Discount,
@@ -36,7 +37,10 @@ FROM
 	-- Get Flatrateterm
 	LEFT JOIN c_invoice_line_alloc ila on ila.c_invoiceline_id = il.c_invoiceline_id 
 	LEFT JOIN c_invoice_candidate ic on ila.C_invoice_candidate_id = ic.C_invoice_candidate_id
-	LEFT JOIN c_flatrate_term ft on ic.ad_table_id = 260 and ic.record_id = ft.c_flatrate_term_id
+	LEFT JOIN c_flatrate_term ft on ic.ad_table_id = 540320 and ic.record_id = ft.c_flatrate_term_id
+	
+	-- get flatrate conditions
+    LEFT OUTER JOIN c_flatrate_conditions ftc on ftc.c_flatrate_conditions_id = ft.c_flatrate_conditions_id
 	
 	-- Get Product and its translation
 	LEFT OUTER JOIN M_Product p ON il.M_Product_ID = p.M_Product_ID AND p.isActive = 'Y'
