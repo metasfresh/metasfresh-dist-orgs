@@ -1,4 +1,4 @@
-DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying);
+﻿DROP FUNCTION IF EXISTS de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying);
 CREATE OR REPLACE FUNCTION de_metas_endcustomer_fresh_reports.docs_sales_orgs_invoice_details(IN c_invoice_id numeric,IN ad_language character varying)
     RETURNS TABLE
     (name character varying, priceactual numeric, priceentered numeric, discount numeric, lineamt numeric, 
