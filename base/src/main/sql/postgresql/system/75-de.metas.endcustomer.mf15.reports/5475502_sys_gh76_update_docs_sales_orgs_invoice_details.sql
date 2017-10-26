@@ -42,7 +42,7 @@ FROM
 	-- Get Flatrateterm
 	LEFT JOIN c_invoice_line_alloc ila on ila.c_invoiceline_id = il.c_invoiceline_id 
 	LEFT JOIN c_invoice_candidate ic on ila.C_invoice_candidate_id = ic.C_invoice_candidate_id
-	LEFT JOIN c_flatrate_term ft on ic.ad_table_id = 260 and ic.record_id = ft.c_flatrate_term_id
+	LEFT JOIN c_flatrate_term ft on ic.ad_table_id = get_table_id('C_Flatrate_Term') and ic.record_id = ft.c_flatrate_term_id
 	-- Get flatrate conditions
 	left join c_flatrate_conditions fc on fc.c_flatrate_conditions_id = ft.c_flatrate_conditions_id
 	
