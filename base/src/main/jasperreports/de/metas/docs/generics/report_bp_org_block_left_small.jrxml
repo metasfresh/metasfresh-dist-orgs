@@ -57,7 +57,7 @@ FROM 	de_metas_endcustomer_fresh_reports.Docs_Generics_BPartner_Report( $P{org_i
 				<textFieldExpression><![CDATA[$F{addressblock}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="126" y="14" width="120" height="12" uuid="4b99bcc1-d46f-4b92-ba33-860c86089c6a"/>
+				<reportElement x="130" y="18" width="120" height="12" uuid="4b99bcc1-d46f-4b92-ba33-860c86089c6a"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" size="6" isBold="false" isUnderline="false"/>
 				</textElement>
@@ -72,7 +72,7 @@ FROM 	de_metas_endcustomer_fresh_reports.Docs_Generics_BPartner_Report( $P{org_i
 				</graphicElement>
 			</line>
 			<rectangle>
-				<reportElement x="3" y="2" width="121" height="25" uuid="0a399c02-b72a-4df6-b4d3-730307a23fbf"/>
+				<reportElement x="0" y="2" width="121" height="25" uuid="0a399c02-b72a-4df6-b4d3-730307a23fbf"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -91,12 +91,15 @@ FROM 	de_metas_endcustomer_fresh_reports.Docs_Generics_BPartner_Report( $P{org_i
 				<text><![CDATA[Post CH AG]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="50" y="2" width="60" height="29" uuid="bf58e45d-cc31-4e96-8798-6a5e39c810fc">
+				<reportElement x="50" y="2" width="60" height="24" uuid="bf58e45d-cc31-4e96-8798-6a5e39c810fc">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA["CH-"+ $F{pp_block}]]></textFieldExpression>
 			</textField>
 		</band>
