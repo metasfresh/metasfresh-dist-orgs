@@ -145,10 +145,10 @@ node('agent && linux && libc6-i386')
 				final def urlEncodedMavenProps = misc.urlEncodeMapValues(mavenProps);
 
 				final MF_ARTIFACT_URLS = [:];
-				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.deployRepoURL}/de/metas/admin/metasfresh-admin/${urlEncodedMavenProps['metasfresh-admin.version']}/metasfresh-admin-${urlEncodedMavenProps['metasfresh-admin.version']}.jar"
+				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.resolveRepoURL}/de/metas/admin/metasfresh-admin/${urlEncodedMavenProps['metasfresh-admin.version']}/metasfresh-admin-${urlEncodedMavenProps['metasfresh-admin.version']}.jar"
 				MF_ARTIFACT_URLS['metasfresh-dist'] = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-dist/${misc.urlEncode(MF_VERSION)}/metasfresh-orgs-dist-${misc.urlEncode(MF_VERSION)}-dist.tar.gz"
-				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-api/${urlEncodedMavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${urlEncodedMavenProps['metasfresh-webui-api.version']}.jar"
-				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] ="${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${urlEncodedMavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${urlEncodedMavenProps['metasfresh-webui-frontend.version']}.tar.gz"
+				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.resolveRepoURL}/de/metas/ui/web/metasfresh-webui-api/${urlEncodedMavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${urlEncodedMavenProps['metasfresh-webui-api.version']}.jar"
+				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] ="${mvnConf.resolveRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${urlEncodedMavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${urlEncodedMavenProps['metasfresh-webui-frontend.version']}.tar.gz"
 
 				final String releaseLinkWithText = misc.createReleaseLinkWithText(MF_UPSTREAM_BRANCH, MF_RELEASE_VERSION, MF_VERSION, MF_ARTIFACT_URLS);
 
