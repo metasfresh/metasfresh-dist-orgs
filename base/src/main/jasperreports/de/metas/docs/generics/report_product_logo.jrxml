@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-16T14:20:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_logo" pageWidth="300" pageHeight="842" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="de/metas/docs/generics/report" uuid="1f35f608-9935-495c-981b-31bb24e43ab2">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="metasfresh"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="org_id" class="java.math.BigDecimal">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="printname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="c_invoice_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT p.M_Product_Category_ID 
+	FROM M_Product p 
+	INNER JOIN C_InvoiceLine il ON p.M_Product_ID = il.M_Product_ID AND il.isActive = 'Y'
+	WHERE il.C_Invoice_ID = $P{c_invoice_id} AND p.isActive = 'Y' 
+	ORDER BY il.line ASC
+	limit 1]]>
+	</queryString>
+	<field name="m_product_category_id" class="java.math.BigDecimal"/>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image scaleImage="RealSize" hAlign="Left">
+				<reportElement key="image-1" x="0" y="2" width="300" height="88" isPrintWhenDetailOverflows="true" uuid="8a7336c5-5f63-41d5-8edd-dfc316734e2b"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA[($F{m_product_category_id}.compareTo(new BigDecimal("540005")) == 0) ? 
+	"de/metas/generics/logo_540005.png" : 
+		(( $F{m_product_category_id}.compareTo(new BigDecimal("540006")) == 0) ? "de/metas/generics/logo_540006.png" : "de/metas/generics/logo.png")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

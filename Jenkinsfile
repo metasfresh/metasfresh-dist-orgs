@@ -145,15 +145,13 @@ node('agent && linux && libc6-i386')
 				final def urlEncodedMavenProps = misc.urlEncodeMapValues(mavenProps);
 
 				final MF_ARTIFACT_URLS = [:];
-				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.deployRepoURL}/de/metas/admin/metasfresh-admin/${urlEncodedMavenProps['metasfresh-admin.version']}/metasfresh-admin-${urlEncodedMavenProps['metasfresh-admin.version']}.jar"
+				MF_ARTIFACT_URLS['metasfresh-admin'] = "${mvnConf.resolveRepoURL}/de/metas/admin/metasfresh-admin/${urlEncodedMavenProps['metasfresh-admin.version']}/metasfresh-admin-${urlEncodedMavenProps['metasfresh-admin.version']}.jar"
 				MF_ARTIFACT_URLS['metasfresh-dist'] = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-orgs-dist/${misc.urlEncode(MF_VERSION)}/metasfresh-orgs-dist-${misc.urlEncode(MF_VERSION)}-dist.tar.gz"
-				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-api/${urlEncodedMavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${urlEncodedMavenProps['metasfresh-webui-api.version']}.jar"
-				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] ="${mvnConf.deployRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${urlEncodedMavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${urlEncodedMavenProps['metasfresh-webui-frontend.version']}.tar.gz"
+				MF_ARTIFACT_URLS['metasfresh-webui'] = "${mvnConf.resolveRepoURL}/de/metas/ui/web/metasfresh-webui-api/${urlEncodedMavenProps['metasfresh-webui-api.version']}/metasfresh-webui-api-${urlEncodedMavenProps['metasfresh-webui-api.version']}.jar"
+				MF_ARTIFACT_URLS['metasfresh-webui-frontend'] ="${mvnConf.resolveRepoURL}/de/metas/ui/web/metasfresh-webui-frontend/${urlEncodedMavenProps['metasfresh-webui-frontend.version']}/metasfresh-webui-frontend-${urlEncodedMavenProps['metasfresh-webui-frontend.version']}.tar.gz"
 
-				// Note: for the rollout-job's URL with the 'parambuild' to work on this pipelined jenkins, we need the https://wiki.jenkins-ci.org/display/JENKINS/Build+With+Parameters+Plugin, and *not* version 1.3, but later.
-				// See
-				//  * https://github.com/jenkinsci/build-with-parameters-plugin/pull/10
-				//  * https://jenkins.ci.cloudbees.com/job/plugins/job/build-with-parameters-plugin/15/org.jenkins-ci.plugins$build-with-parameters/
+				final String releaseLinkWithText = misc.createReleaseLinkWithText(MF_UPSTREAM_BRANCH, MF_RELEASE_VERSION, MF_VERSION, MF_ARTIFACT_URLS);
+
 				currentBuild.description="""
 <h3>Version infos</h3>
 <ul>
@@ -179,6 +177,7 @@ Note: all the separately listed artifacts are also included in the dist-tar.gz
 <h3>Deploy</h3>
 <ul>
 	<li><a href=\"https://jenkins.metasfresh.com/job/ops/job/deploy_metasfresh/parambuild/?MF_ROLLOUT_FILE_URL=${MF_ARTIFACT_URLS['metasfresh-dist']}&MF_UPSTREAM_BUILD_URL=${BUILD_URL}\"><b>This link</b></a> lets you jump to a rollout job that will deploy (roll out) the tar.gz to a host of your choice.</li>
+	<li>..and ${releaseLinkWithText}</li>
 </ul>
 <p>
 <h3>Additional notes</h3>
