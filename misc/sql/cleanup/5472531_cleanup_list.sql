@@ -1,0 +1,1 @@
+update ad_ref_list set isactive ='N' where AD_Reference_ID=540636;
