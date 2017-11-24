@@ -361,8 +361,8 @@ note: when adding new records, please roughly order them by alphabet.
 		</dependency>
 
 		<dependency>
-			<groupId>de.metas.report.jasper.server</groupId>
-			<artifactId>de.metas.report.jasper.server.base</artifactId>
+			<groupId>de.metas.report</groupId>
+			<artifactId>report-service</artifactId>
 			<version>${metasfresh.version}</version>
 			<classifier>migration-postgres-sql</classifier>
 			<type>zip</type>
