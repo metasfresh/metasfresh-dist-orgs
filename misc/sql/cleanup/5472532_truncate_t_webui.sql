@@ -1,0 +1,2 @@
+truncate t_webui_viewselection;
+truncate t_webui_viewselectionline;
