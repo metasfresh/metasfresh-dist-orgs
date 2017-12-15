@@ -92,7 +92,7 @@ UPDATE C_BP_Group SET Value='Mitglied',Updated=TO_TIMESTAMP('2017-03-07 16:42:33
 
 -- 07.03.2017 16:42
 -- URL zum Konzept
-INSERT INTO C_BP_Group (AD_Client_ID,AD_Org_ID,AD_PrintColor_ID,C_BP_Group_ID,Created,CreatedBy,CreditWatchPercent,IsActive,IsConfidentialInfo,IsCustomer,IsDefault,IsPrintTax,IsPrintTaxSales,M_FreightCost_ID,M_PriceList_ID,M_PricingSystem_ID,Name,PO_PricingSystem_ID,PriceMatchTolerance,PriorityBase,Updated,UpdatedBy,Value) VALUES (1000000,1000000,100,540004,TO_TIMESTAMP('2017-03-07 16:42:55','YYYY-MM-DD HH24:MI:SS'),100,0,'Y','N','N','N','Y','Y',1000000,2001003,2000837,'Sektion',2000835,0,'S',TO_TIMESTAMP('2017-03-07 16:42:55','YYYY-MM-DD HH24:MI:SS'),100,'Sektion')
+INSERT INTO C_BP_Group (AD_Client_ID,AD_Org_ID,AD_PrintColor_ID,C_BP_Group_ID,Created,CreatedBy,CreditWatchPercent,IsActive,IsConfidentialInfo,IsCustomer,IsDefault,IsPrintTax,IsPrintTaxSales,M_FreightCost_ID,M_PriceList_ID,M_PricingSystem_ID,Name,PO_PricingSystem_ID,PriceMatchTolerance,PriorityBase,Updated,UpdatedBy,Value) VALUES (1000000,1000000,100,540004,TO_TIMESTAMP('2017-03-07 16:42:55','YYYY-MM-DD HH24:MI:SS'),100,0,'Y','N','N','N','Y','Y',null,2001003,2000837,'Sektion',2000835,0,'S',TO_TIMESTAMP('2017-03-07 16:42:55','YYYY-MM-DD HH24:MI:SS'),100,'Sektion')
 ;
 
 -- 07.03.2017 16:42
