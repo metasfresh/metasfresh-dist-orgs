@@ -1,0 +1,50 @@
+-- removing wrong payment menu entry
+DELETE FROM AD_TreeNodeMM WHERE AD_Tree_ID=540005 AND Node_ID=540399
+;
+
+-- 2018-01-23T15:07:42.005
+-- URL zum Konzept
+INSERT INTO AD_TreeNodeMM (IsActive,Created,CreatedBy,SeqNo,AD_Tree_ID,Node_ID,AD_Client_ID,AD_Org_ID,Updated,UpdatedBy) VALUES ('Y',TO_TIMESTAMP('2018-01-23 15:07:42','YYYY-MM-DD HH24:MI:SS'),100,0,540005,540758,0,0,TO_TIMESTAMP('2018-01-23 15:07:42','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- 2018-01-23T15:07:45.417
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540001, SeqNo=0, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540758 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:07:45.419
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540001, SeqNo=1, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540398 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:11:52.291
+-- URL zum Konzept
+UPDATE AD_Window SET IsBetaFunctionality='N',Updated=TO_TIMESTAMP('2018-01-23 15:11:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=540155
+;
+
+-- 2018-01-23T15:14:55.554
+-- URL zum Konzept
+UPDATE AD_Menu SET Name='Zahlung ',Updated=TO_TIMESTAMP('2018-01-23 15:14:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=235
+;
+
+
+-- 2018-01-23T15:15:10.444
+-- URL zum Konzept
+UPDATE AD_Menu SET IsCreateNew='N',Updated=TO_TIMESTAMP('2018-01-23 15:15:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=540749
+;
+
+-- 2018-01-23T15:15:43.958
+-- URL zum Konzept
+INSERT INTO AD_TreeNodeMM (IsActive,Created,CreatedBy,SeqNo,AD_Tree_ID,Node_ID,AD_Client_ID,AD_Org_ID,Updated,UpdatedBy) VALUES ('Y',TO_TIMESTAMP('2018-01-23 15:15:43','YYYY-MM-DD HH24:MI:SS'),100,0,540005,540749,0,0,TO_TIMESTAMP('2018-01-23 15:15:43','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- 2018-01-23T15:15:46.458
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540002, SeqNo=0, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540749 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:15:46.460
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540002, SeqNo=1, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540404 AND AD_Tree_ID=540005
+;
+
