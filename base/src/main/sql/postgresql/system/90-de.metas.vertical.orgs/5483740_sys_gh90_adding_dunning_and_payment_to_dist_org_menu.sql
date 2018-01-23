@@ -1,4 +1,35 @@
--- removing wrong payment menu entry
+-- 2018-01-23T15:05:46.688
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540001, SeqNo=0, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540398 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:05:46.693
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540001, SeqNo=1, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540758 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:05:46.693
+-- URL zum Konzept
+UPDATE AD_TreeNodeMM SET Parent_ID=540001, SeqNo=2, Updated=now(), UpdatedBy=100 WHERE  Node_ID=540399 AND AD_Tree_ID=540005
+;
+
+-- 2018-01-23T15:05:46.754
+-- URL zum Konzept
+INSERT INTO AD_TreeNodeMM (IsActive,Created,CreatedBy,SeqNo,AD_Tree_ID,Node_ID,AD_Client_ID,AD_Org_ID,Updated,UpdatedBy) VALUES ('Y',TO_TIMESTAMP('2018-01-23 15:05:46','YYYY-MM-DD HH24:MI:SS'),100,0,540005,540399,0,0,TO_TIMESTAMP('2018-01-23 15:05:46','YYYY-MM-DD HH24:MI:SS'),100)
+;
+
+-- 2018-01-23T15:06:07.466
+-- URL zum Konzept
+DELETE FROM AD_TreeNodeMM WHERE AD_Tree_ID=540005 AND Node_ID=540758
+;
+
+-- 2018-01-23T15:07:04.147
+-- URL zum Konzept
+UPDATE AD_Menu SET Name='Mahnungen (nichtwebui)',Updated=TO_TIMESTAMP('2018-01-23 15:07:04','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=540399
+;
+
+-- 2018-01-23T15:07:35.787
+-- URL zum Konzept
 DELETE FROM AD_TreeNodeMM WHERE AD_Tree_ID=540005 AND Node_ID=540399
 ;
 
@@ -27,6 +58,10 @@ UPDATE AD_Window SET IsBetaFunctionality='N',Updated=TO_TIMESTAMP('2018-01-23 15
 UPDATE AD_Menu SET Name='Zahlung ',Updated=TO_TIMESTAMP('2018-01-23 15:14:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=235
 ;
 
+-- 2018-01-23T15:15:02.334
+-- URL zum Konzept
+UPDATE AD_Menu SET Name='Zahlung (not webui)',Updated=TO_TIMESTAMP('2018-01-23 15:15:02','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=235
+;
 
 -- 2018-01-23T15:15:10.444
 -- URL zum Konzept
