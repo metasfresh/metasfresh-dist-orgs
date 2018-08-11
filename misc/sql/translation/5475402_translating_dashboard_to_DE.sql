@@ -1,4 +1,4 @@
---select webui_kpi_id, name,offsetname from webui_kpi_field where updated >= '2018-08-08';
+﻿--select webui_kpi_id, name,offsetname from webui_kpi_field where updated >= '2018-08-08';
 UPDATE webui_kpi_field SET name = 'Gruppe', offsetname = null                  where webui_kpi_id = 1000004;
 UPDATE webui_kpi_field SET name = 'Zeilennetto', offsetname = null             where webui_kpi_id = 1000004;
 UPDATE webui_kpi_field SET name = 'Produkt Kategorie', offsetname = null       where webui_kpi_id = 1000008;
