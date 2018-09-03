@@ -1,3 +1,4 @@
+truncate m_product_category_trl;
 update public.m_product_category  set ad_client_id = 99 where m_product_category_id= 2001602;
 update public.m_product_category  set ad_client_id = 99 where m_product_category_id= 2001599;
 delete from public.m_product_category where m_product_category_id= 2001594;
