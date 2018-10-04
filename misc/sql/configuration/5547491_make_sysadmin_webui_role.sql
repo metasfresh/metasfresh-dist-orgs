@@ -1,0 +1,1 @@
+update ad_role set webui_role = 'Y' where ad_role_id = 0;
