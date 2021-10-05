@@ -10,7 +10,7 @@ delete from m_freightcostdetail;
 delete from m_freightcostshipper; 
 update c_bp_group set m_freightcost_id = NULL; 
 delete from m_freightcost; 
-delete from x_mrp_productinfo_detail_mv; 
+-- delete from x_mrp_productinfo_detail_mv; 
 delete from m_hu_pi_item_product where m_hu_pi_item_id!=101; 
 delete from c_flatrate_matching; 
 delete from m_qualityinsp_lagerkonf_additionalfee; 
