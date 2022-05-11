@@ -4,7 +4,7 @@ delete from pp_product_bomline_trl;
 delete from pp_product_bomline; 
 delete from pp_product_bom_trl; 
 delete from pp_product_bom; 
-delete from pp_product_bomversions;
+--delete from pp_product_bomversions;
 delete from c_uom_conversion; 
 update c_bpartner set m_freightcost_id = NULL; 
 delete from m_freightcostdetail; 
