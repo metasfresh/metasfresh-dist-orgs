@@ -533,7 +533,7 @@ DO $$
         --DELETE FROM c_currency_trl WHERE TRUE;
         DELETE FROM c_customer_retention WHERE TRUE;
         --DELETE FROM c_cycle WHERE TRUE;
-        DELETE FROM c_dataimport WHERE TRUE;
+        --DELETE FROM c_dataimport WHERE TRUE;
         DELETE FROM c_dataimport_run WHERE TRUE;
         --DELETE FROM c_doc_outbound_config WHERE TRUE;
         DELETE FROM c_doc_outbound_log WHERE TRUE;
