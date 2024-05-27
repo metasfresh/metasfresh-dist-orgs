@@ -247,7 +247,6 @@ TRUNCATE x_bpartner_cockpit_search_mv;
 
 TRUNCATE ad_wf_activity, ad_wf_eventaudit, ad_note, ad_wf_activityresult;
 
-TRUNCATE c_contact_person_sales;
 TRUNCATE c_contact_person;
 
 DELETE FROM c_dunningdoc_line_source WHERE TRUE;
@@ -519,7 +518,6 @@ DO $$
         --DELETE FROM c_compensationgroup_schema WHERE TRUE;
         DELETE FROM c_compensationgroup_schemaline WHERE TRUE;
         DELETE FROM c_contact_person WHERE ad_user_id NOT IN (100);
-        DELETE FROM c_contact_person_sales WHERE TRUE;
         DELETE FROM c_contract_change WHERE c_flatrate_transition_id >= 1000000;
         --DELETE FROM c_conversion_rate WHERE TRUE;
         --DELETE FROM c_conversiontype WHERE TRUE;
