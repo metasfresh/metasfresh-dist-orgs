@@ -521,7 +521,7 @@
 --         --DELETE FROM c_compensationgroup_schema WHERE TRUE;
 --         DELETE FROM c_compensationgroup_schemaline WHERE TRUE;
 --         DELETE FROM c_contact_person WHERE ad_user_id NOT IN (100);
---         DELETE FROM c_contract_change WHERE c_flatrate_transition_id >= 1000000;
+--         --DELETE FROM c_contract_change WHERE c_flatrate_transition_id >= 1000000;
 --         --DELETE FROM c_conversion_rate WHERE TRUE;
 --         --DELETE FROM c_conversiontype WHERE TRUE;
 --         DELETE FROM c_conversiontype_default WHERE c_conversiontype_default_id > 1000000;
