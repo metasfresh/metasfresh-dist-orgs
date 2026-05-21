@@ -23,4 +23,5 @@ delete from m_hu_packingmaterial;
 delete from c_docline_sort_item; 
 delete from m_cost; 
 delete from m_product_printformat;
+delete from m_product_asi_data where m_product_id != 1000000 and created < '2017-07-01';
 delete from m_product where m_product_id != 1000000 and created < '2017-07-01';
